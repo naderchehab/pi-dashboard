@@ -19773,7 +19773,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'container' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,

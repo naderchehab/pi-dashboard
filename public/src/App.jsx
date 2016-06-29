@@ -30,7 +30,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1>Hello, world!</h1>
                 <label>
                     <Toggle defaultChecked={this.state.checked} onChange={this.handleChange}/>
