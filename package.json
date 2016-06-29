@@ -1,0 +1,21 @@
+{
+  "name": "pi-dashboard",
+  "version": "0.0.1",
+  "description": "Raspberry Pi Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/naderchehab/pi-dashboard.git"
+  },
+  "author": "Nader Chehab",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.1.2",
+    "body-parser": "^1.1.2",
+    "errorhandler": "^1.0.1",
+    "method-override": "^1.0.0"
+  }
+}
