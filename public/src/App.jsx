@@ -44,7 +44,10 @@ export default class App extends Component {
             <div className="container">
                 <h1>Dashboard</h1>
                 <h2>Outlet Status</h2>
-                <input type="checkbox" checked={this.state.powerOn} onClick={this.handleChange} />
+                <div className="slide">
+                  <input type="checkbox" value="None" id="outlet-status" name="check" checked={this.state.powerOn} onClick={this.handleChange} />
+                  <label htmlFor="outlet-status"></label>
+                </div>
             </div>
         );
     }

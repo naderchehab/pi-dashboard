@@ -19795,7 +19795,12 @@
 	                    null,
 	                    'Outlet Status'
 	                ),
-	                _react2.default.createElement('input', { type: 'checkbox', checked: this.state.powerOn, onClick: this.handleChange })
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'slide' },
+	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'outlet-status', name: 'check', checked: this.state.powerOn, onClick: this.handleChange }),
+	                    _react2.default.createElement('label', { htmlFor: 'outlet-status' })
+	                )
 	            );
 	        }
 	    }]);

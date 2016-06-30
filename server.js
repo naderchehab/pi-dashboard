@@ -42,13 +42,13 @@ app.get('/getState', (req, res) => {
 });
 
 app.post('/on', (req, res) => {
-    //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
-    utils.toggleLed(true, res);
+    utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
+    //utils.toggleLed(true, res);
 });
 
 app.post('/off', (req, res) => {
-    //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', false, (result) => res.json(result));
-    utils.toggleLed(false, res);
+    utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', false, (result) => res.json(result));
+    //utils.toggleLed(false, res);
 });
 
 console.log('Dashboard server listening on port %s', port);
