@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let express = require("express");
+let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let errorHandler = require('errorhandler');
@@ -9,8 +9,8 @@ let port = parseInt(process.env.PORT, 10) || 8080;
 let publicDir = process.argv[2] || __dirname + '/public';
 let path = require('path');
 let passport = require('passport');
-var BasicStrategy = require('passport-http').BasicStrategy;
-let exec = require('child_process').exec;
+let BasicStrategy = require('passport-http').BasicStrategy;
+let utils = require('./utils');
 
 app.use(methodOverride());
 app.use(bodyParser.json());
@@ -19,54 +19,37 @@ app.use(errorHandler({
     showStack: true
 }));
 
-passport.use(new BasicStrategy(
-    function(username, password, done) {
-        let isValid = validatePassword(username, password);
+passport.use(new BasicStrategy((username, password, done) => {
+        let isValid = utils.validatePassword(username, password);
         return done(null, isValid);
     }
 ));
 
 app.use(passport.authenticate('basic', { session: false }));
-
 app.use(express.static(publicDir));
 
-function validatePassword(username, password) {
-    return true;
-}
-
-app.get("/", function(req, res) {
-    res.sendFile(path.join(publicDir, "/index.html"));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(publicDir, '/index.html'));
 });
 
-app.post('/on', function(req, res) {
-    exec('/home/pi/rfoutlet/codesend 21811 -l 174', function(error, stdout, stderr) {
-        if (error) {
-            return res.json({
-                success: false,
-                error: error
-            });
+app.get('/getState', (req, res) => {
+    utils.getState((err, data) => {
+        if (err) {
+            return res.json({success: false, error: err})
         }
-        res.json({
-            success: true,
-            state: true
-        });
+        res.json({success: true, powerOn: data.powerOn});
     });
 });
 
-app.post('/off', function(req, res) {
-    exec('/home/pi/rfoutlet/codesend 21820 -l 174', function(error, stdout, stderr) {
-        if (error) {
-            return res.json({
-                success: false,
-                error: error
-            });
-        }
-        res.json({
-            success: true,
-            state: false
-        });
-    });
+app.post('/on', (req, res) => {
+    //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
+    utils.toggleLed(true, res);
 });
 
-console.log("Dashboard server listening on port %s", port);
+app.post('/off', (req, res) => {
+    //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', false, (result) => res.json(result));
+    utils.toggleLed(false, res);
+});
+
+console.log('Dashboard server listening on port %s', port);
 app.listen(port);

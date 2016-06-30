@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Toggle from 'react-toggle';
 import $ from 'jquery';
 
 export default class App extends Component {
@@ -7,19 +6,27 @@ export default class App extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            checked: false
+            powerOn: false
         };
     }
 
+    componentDidMount() {
+        this.callApi('/getState', 'GET');
+    }
+
     handleChange() {
+        this.callApi(this.state.powerOn ? '/off' : '/on', 'POST');
+    }
+
+    callApi(url, method) {
         $.ajax({
-            url: this.state.checked ? '/off' : '/on',
-            method: 'POST',
+            url: url,
+            method,
             contentType: 'application/json; charset=utf-8',
             dataType : 'json',
             success: (data) => {
                 if (data.success) {
-                    this.setState({checked: data.state});
+                    this.setState({powerOn: data.powerOn});
                 }
                 else {
                     alert(data.error);
@@ -28,13 +35,16 @@ export default class App extends Component {
         });
     }
 
+    handleButtonClick() {
+        this.setState({powerOn: true});
+    }
+
     render() {
         return (
             <div className="container">
-                <h1>Hello, world!</h1>
-                <label>
-                    <Toggle defaultChecked={this.state.checked} onChange={this.handleChange}/>
-                </label>
+                <h1>Dashboard</h1>
+                <h2>Outlet Status</h2>
+                <input type="checkbox" checked={this.state.powerOn} onClick={this.handleChange} />
             </div>
         );
     }

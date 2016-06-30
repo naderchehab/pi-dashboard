@@ -17,6 +17,7 @@
     "errorhandler": "^1.0.1",
     "express": "^4.1.2",
     "method-override": "^1.0.0",
+    "onoff": "^1.1.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0"
   }
