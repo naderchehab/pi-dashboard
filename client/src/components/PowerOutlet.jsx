@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import $ from 'jquery';
 
-export default class PowerOutlet extends React.Component {
+export default class PowerOutlet extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);

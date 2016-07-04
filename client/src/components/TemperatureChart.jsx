@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import rd3 from 'rd3';
 
 const LineChart = rd3.LineChart;
@@ -35,7 +35,7 @@ let lineData = [
     }
 ];
 
-export default class Chart extends React.Component {
+export default class Chart extends Component {
     render() {
         return (<LineChart legend={true} data={lineData} width='100%' height={400} viewBoxObject={{
             x: 0,
