@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
+import utils from '../utils/utils';
 
 export default class PowerOutlet extends Component {
     constructor(props) {
@@ -11,32 +11,13 @@ export default class PowerOutlet extends Component {
     }
 
     componentDidMount() {
-        this.callApi('/getState', 'GET');
+        utils.callApi('/getState', 'GET', data => this.setState({powerOn: data.powerOn}));
     }
 
     handleChange() {
-        this.callApi(this.state.powerOn ? '/off' : '/on', 'POST');
-    }
-
-    callApi(url, method) {
-        $.ajax({
-            url: url,
-            method,
-            contentType: 'application/json; charset=utf-8',
-            dataType : 'json',
-            success: (data) => {
-                if (data.success) {
-                    this.setState({powerOn: data.powerOn});
-                }
-                else {
-                    alert(data.error);
-                }
-            }
-        });
-    }
-
-    handleButtonClick() {
-        this.setState({powerOn: true});
+        if (window.confirm('Are you sure?')) {
+            utils.callApi(this.state.powerOn ? '/off' : '/on', 'POST', data => this.setState({powerOn: data.powerOn}));
+        }
     }
 
     render() {

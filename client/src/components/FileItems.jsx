@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
 import FileItem from './FileItem';
+import utils from '../utils/utils';
 
 export default class FileItems extends Component {
     constructor(props) {
@@ -11,19 +11,7 @@ export default class FileItems extends Component {
     }
 
     componentDidMount() {
-        $.ajax({
-            url: '/getFiles',
-            method: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: (data) => {
-                if (data.success) {
-                    this.setState({files: data.files});
-                } else {
-                    alert(data.error);
-                }
-            }
-        });
+        utils.callApi('/getFiles', 'GET', data => this.setState({files: data.files}));
     }
 
     render() {
