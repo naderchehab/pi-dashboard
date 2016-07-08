@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Card, CardMedia, CardTitle, CardText, CardActions} from 'react-toolbox/lib/card';
 import FileItem from './FileItem';
 import utils from '../utils/utils';
 
@@ -16,14 +17,16 @@ export default class FileItems extends Component {
 
     render() {
         return (
-            <div>
-                <h4>Files</h4>
-                <div className="file-list">
-                    <ul>
-                        {this.state.files.map(filename => <FileItem key={filename} filename={filename} />)}
-                    </ul>
-                </div>
-            </div>
+            <Card>
+                <CardTitle>Files</CardTitle>
+                <CardText>
+                    <div className="file-list">
+                        <ul>
+                            {this.state.files.map(filename => <FileItem key={filename} filename={filename}/>)}
+                        </ul>
+                    </div>
+                </CardText>
+            </Card>
         );
     }
 }

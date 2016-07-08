@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Card, CardMedia, CardTitle, CardText, CardActions} from 'react-toolbox/lib/card';
 import utils from '../utils/utils';
 
 export default class PowerOutlet extends Component {
@@ -22,13 +23,15 @@ export default class PowerOutlet extends Component {
 
     render() {
         return (
-            <div>
-                <h4>Power Outlet Status</h4>
-                <div className="slide">
-                    <input type="checkbox" value="None" id="outlet-status" name="check" checked={this.state.powerOn} onClick={this.handleChange}/>
-                    <label htmlFor="outlet-status"></label>
-                </div>
-            </div>
+            <Card>
+                <CardTitle title="Power Outlet Status"/>
+                <CardActions>
+                    <div className="slide">
+                        <input type="checkbox" value="None" id="outlet-status" name="check" checked={this.state.powerOn} onClick={this.handleChange}/>
+                        <label htmlFor="outlet-status"></label>
+                    </div>
+                </CardActions>
+            </Card>
         );
     }
 }

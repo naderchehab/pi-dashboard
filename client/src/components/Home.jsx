@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Masonry from 'react-masonry-component';
 import PowerOutlet from './PowerOutlet';
 import TemperatureChart from './TemperatureChart';
 import FileItems from './FileItems';
@@ -6,12 +7,17 @@ import FileItems from './FileItems';
 export default class Home extends Component {
     render() {
         return (
-            <div className="container">
-                <h1>Dashboard</h1>
-                <PowerOutlet/>
-                <TemperatureChart/>
-                <FileItems/>
-            </div>
+            <Masonry className={'masonry-class'} elementType={'ul'}>
+                <li className="masonry-element-class">
+                    <PowerOutlet/>
+                </li>
+                <li className="masonry-element-class">
+                    <TemperatureChart/>
+                </li>
+                <li className="masonry-element-class">
+                    <FileItems/>
+                </li>
+            </Masonry>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import rd3 from 'rd3';
+import {Card, CardMedia, CardTitle, CardText, CardActions} from 'react-toolbox/lib/card';
 import utils from '../utils/utils';
 
 const LineChart = rd3.LineChart;
@@ -38,16 +39,23 @@ let lineData = [
 
 export default class Chart extends Component {
     render() {
-        return (<LineChart legend={true} data={lineData} width='100%' height={'400px'} viewBoxObject={{
-            x: 0,
-            y: 0,
-            width: 500,
-            height: 400
-        }} title='Indoor Temperature' yAxisLabel='°C' xAxisLabel='Time' domain={{
-            x: [
-                , 6
-            ],
-            y: [-10]
-        }} gridHorizontal={true}/>);
+        return (
+            <Card>
+                <CardTitle title="Indoor Temperature"/>
+                <CardText>
+                    <LineChart legend={true} data={lineData} width='100%' height={'400px'} viewBoxObject={{
+                    x: 0,
+                    y: 0,
+                    width: 500,
+                    height: 400
+                }} title='' yAxisLabel='°C' xAxisLabel='Time' domain={{
+                    x: [
+                        , 6
+                    ],
+                    y: [-10]
+                }} gridHorizontal={true}/>
+                </CardText>
+            </Card>
+    );
     }
 }

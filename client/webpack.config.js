@@ -14,14 +14,15 @@ module.exports = {
     module: {
         loaders: [{
                 exclude: /node_modules/,
-                loaders: ['babel?presets[]=react,presets[]=es2015,presets[]=stage-1']
+                loaders: ['babel?presets[]=react,presets[]=es2015,presets[]=stage-0']
             },
             {
                 test: /(\.scss|\.css)$/,
-                loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+                loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass!toolbox')
             }
         ]
     },
+    toolbox: {theme: 'src/theme/config.scss'},
     plugins: [
         new ExtractTextPlugin('/public/dist/build.css', { allChunks: true })
     ],

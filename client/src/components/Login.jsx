@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import utils from '../utils/utils';
 import Input from 'react-toolbox/lib/input';
-import { Button } from 'react-toolbox/lib/button';
+import {Button} from 'react-toolbox/lib/button';
+import {Card, CardMedia, CardTitle, CardText, CardActions} from 'react-toolbox/lib/card';
 
 export default class Login extends Component {
     constructor(props) {
@@ -15,9 +16,6 @@ export default class Login extends Component {
             password: ''
         };
     }
-    componentDidMount() {
-
-    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -27,11 +25,10 @@ export default class Login extends Component {
             data: JSON.stringify({username: this.state.username, password: this.state.password}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json'
-        })
-        .done((data, textStatus, jqXHR) => {
-            location.reload();
-        })
-        .fail((jqXHR, textStatus, errorThrown) => {
+        }).done((data, textStatus, jqXHR) => {
+            this.props.onLogin(data.isLoggedIn);
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            this.props.onLogin(false);
             console.log(errorThrown);
         });
     }
@@ -47,12 +44,22 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <h1>Login</h1>
-                <form className='login-form'>
-                    <Input id='username' label='Username' name='username' value={this.state.username} onChange={this.handleUsernameChange}/>
-                    <Input id='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
-                    <Button label='Login' onClick={this.handleSubmit}/>
-                </form>
+                <Card style={{
+                    width: '49%',
+                    top: '20px',
+                    margin: 'auto'
+                }}>
+                    <CardTitle title="Login"/>
+                    <CardText>
+                        <form className='login-form'>
+                            <Input id='username' label='Username' name='username' value={this.state.username} onChange={this.handleUsernameChange}/>
+                            <Input id='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
+                        </form>
+                    </CardText>
+                    <CardActions>
+                        <Button label='Login' onClick={this.handleSubmit} flat primary/>
+                    </CardActions>
+                </Card>
             </div>
         );
     }
