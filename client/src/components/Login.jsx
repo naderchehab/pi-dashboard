@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import $ from 'jquery';
 import utils from '../utils/utils';
+import Input from 'react-toolbox/lib/input';
+import { Button } from 'react-toolbox/lib/button';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
-        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.state = {
@@ -16,41 +19,39 @@ export default class Login extends Component {
 
     }
 
-    handleLoginClick() {
+    handleSubmit(e) {
+        e.preventDefault();
         $.ajax({
             url: '/login',
             method: 'POST',
             data: JSON.stringify({username: this.state.username, password: this.state.password}),
             contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: (data) => {
-                console.log(data);
-            }
+            dataType: 'json'
+        })
+        .done((data, textStatus, jqXHR) => {
+            location.reload();
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            console.log(errorThrown);
         });
     }
 
-    handleUsernameChange(e) {
-        this.setState({username: e.target.value});
+    handleUsernameChange(val) {
+        this.setState({username: val});
     }
 
-    handlePasswordChange(e) {
-        this.setState({password: e.target.value});
+    handlePasswordChange(val) {
+        this.setState({password: val});
     }
 
     render() {
         return (
             <div>
-                <h4>Login</h4>
-                <form className="login-form">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username"value={this.state.username} onChange={this.handleUsernameChange}></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input id="password" value={this.state.password} onChange={this.handlePasswordChange}></input>
-                    </div>
-                    <input type="submit" onClick={this.handleLoginClick}></input>
+                <h1>Login</h1>
+                <form className='login-form'>
+                    <Input id='username' label='Username' name='username' value={this.state.username} onChange={this.handleUsernameChange}/>
+                    <Input id='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
+                    <Button label='Login' onClick={this.handleSubmit}/>
                 </form>
             </div>
         );

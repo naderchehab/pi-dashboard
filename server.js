@@ -10,13 +10,15 @@ let methodOverride = require('method-override');
 let port = parseInt(process.env.PORT, 10) || 8080;
 let publicDir = __dirname + '/client/public';
 let path = require('path');
-let session = require('express-session')
+let session = require('express-session');
 let passport = require('passport');
-let BasicStrategy = require('passport-http').BasicStrategy;
+let LocalStrategy = require('passport-local').Strategy;
+let ensureLogin = require('connect-ensure-login');
 let utils = require('./utils');
 
 app.use(methodOverride());
 app.use(bodyParser.json());
+
 app.use(errorHandler({
     dumpExceptions: true,
     showStack: true
@@ -26,20 +28,25 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new BasicStrategy((username, password, done) => {
+passport.use(new LocalStrategy((username, password, done) => {
         let isValid = utils.validatePassword(username, password);
-        return done(null, isValid);
+        if (isValid) {
+            return done(null, {username, password});
+        }
+        else {
+            return done(null, false, "Invalid credentials");
+        }
     }
 ));
 
 app.use(express.static(publicDir));
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
+passport.serializeUser((user, done) => {
+    done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
 app.get('/', (req, res) => {
@@ -50,10 +57,23 @@ app.get('/isLoggedIn', (req, res) => {
     return res.json({success: true, isLoggedIn: req.user != null});
 });
 
-app.post('/login', passport.authenticate('basic', { successRedirect: '/',
-                                                    failureRedirect: '/' }));
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (user) {
+        req.login(user, err => {
+            if (err) {
+                return next(err);
+            }
+            return res.json({success: true, isLoggedIn: true});
+        });
+    }
+    else {
+        return res.json({success: true, isLoggedIn: false});
+    }
+    })(req, res, next);
+});
 
-app.get('/getState', passport.authenticate('basic'), (req, res) => {
+app.get('/getState', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     utils.getState((err, data) => {
         if (err) {
             return res.json({success: false, error: err});
@@ -62,17 +82,17 @@ app.get('/getState', passport.authenticate('basic'), (req, res) => {
     });
 });
 
-app.post('/on', passport.authenticate('basic'), (req, res) => {
+app.post('/on', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
     //utils.toggleLed(true, res);
 });
 
-app.post('/off', passport.authenticate('basic'), (req, res) => {
+app.post('/off', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', false, (result) => res.json(result));
     //utils.toggleLed(false, res);
 });
 
-app.get('/getFiles', passport.authenticate('basic'), (req, res) => {
+app.get('/getFiles', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     fs.readdir(path.join(publicDir, '/files'), (err, files) => {
         if (err) {
             return res.json({success: false, error: err});
