@@ -44,20 +44,16 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <Card style={{
-                    width: '49%',
-                    top: '20px',
-                    margin: 'auto'
-                }}>
-                    <CardTitle title="Login"/>
+                <Card className='login-card'>
+                    <CardTitle title='Login'/>
                     <CardText>
                         <form className='login-form'>
                             <Input id='username' label='Username' name='username' value={this.state.username} onChange={this.handleUsernameChange}/>
-                            <Input id='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
+                            <Input id='password' type='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
                         </form>
                     </CardText>
                     <CardActions>
-                        <Button label='Login' onClick={this.handleSubmit} flat primary/>
+                        <Button label='Login' onClick={this.handleSubmit} raised primary/>
                     </CardActions>
                 </Card>
             </div>
