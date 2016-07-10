@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import utils from '../utils/utils';
-import Login from './Login';
-import Home from './Home';
+import Login from './Login/Login';
+import Gallery from './Gallery/Gallery';
 
 export default class App extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ export default class App extends Component {
     render() {
         let home;
         if (this.state.isLoggedIn) {
-            home = <Home />;
+            home = <Gallery />;
         }
         else {
             home = <Login onLogin={this.handleLogin} />;

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import utils from '../utils/utils';
 import Input from 'react-toolbox/lib/input';
 import {Button} from 'react-toolbox/lib/button';
 import {Card, CardMedia, CardTitle, CardText, CardActions} from 'react-toolbox/lib/card';
+import utils from '../../utils/utils';
+import theme from './login.scss';
 
 export default class Login extends Component {
     constructor(props) {
@@ -44,10 +45,10 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <Card className='login-card'>
+                <Card className={theme.loginCard}>
                     <CardTitle title='Login'/>
                     <CardText>
-                        <form className='login-form'>
+                        <form>
                             <Input id='username' label='Username' name='username' value={this.state.username} onChange={this.handleUsernameChange}/>
                             <Input id='password' type='password' label='Password' name='password' value={this.state.password} onChange={this.handlePasswordChange}/>
                         </form>

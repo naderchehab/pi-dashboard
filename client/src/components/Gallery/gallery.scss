@@ -1,0 +1,28 @@
+
+.masonry {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.masonryElement {
+    float: left;
+    margin: 5px;
+    min-height: 200px;
+    border: 1px solid hsla(0, 0%, 0%, 0.5);
+  }
+.masonryHalfWidth {
+  width: calc(50% - 12px);
+}
+.masonryFullWidth {
+  width: calc(100% - 12px);
+}
+
+@media only screen and (max-device-width: 480px) {
+    .masonryElement {
+      margin-left: 0px;
+    }
+    .masonryHalfWidth {
+      width: 100%;
+    }
+}

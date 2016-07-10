@@ -1,0 +1,37 @@
+import React, {Component} from 'react';
+import utils from '../../utils/utils';
+import theme from './powerOutlet.scss';
+
+export default class PowerOutlet extends Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            powerOn: false
+        };
+    }
+
+    componentDidMount() {
+        utils.callApi('/getState', 'GET', data => this.setState({powerOn: data.powerOn}));
+    }
+
+    handleChange() {
+        if (window.confirm('Are you sure?')) {
+            utils.callApi(this.state.powerOn
+                ? '/off'
+                : '/on', 'POST', data => this.setState({powerOn: data.powerOn}));
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <label className='cellTitle'>Power Outlet</label>
+                <div className={theme.slide}>
+                    <input type="checkbox" value="None" id="outlet-status" name="check" checked={this.state.powerOn} onClick={this.handleChange}/>
+                    <label htmlFor="outlet-status"></label>
+                </div>
+            </div>
+        );
+    }
+}

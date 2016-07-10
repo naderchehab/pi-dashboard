@@ -1,0 +1,11 @@
+.loginCard {
+    width: 49% !important;
+    top: 20px;
+    margin: auto;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .loginCard {
+      width: 100% !important;
+    }
+}
