@@ -507,6 +507,7 @@
 
 @media only screen and (max-device-width: 480px) {
   .gallery__galleryElement___1JK2n {
-    margin-left: 0; }
-  .gallery__galleryHalfWidth___tPf7o {
+    margin-left: 0;
+    margin-right: 0; }
+  .gallery__galleryHalfWidth___tPf7o, .gallery__galleryFullWidth___1SK4C {
     width: 100%; } }

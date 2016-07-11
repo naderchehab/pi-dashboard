@@ -11,7 +11,7 @@ export default class Home extends Component {
             <div>
                 <ul className={theme.gallery}>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
-                        <Label text={'Welcome to the the Pi Dashboard'}/>
+                        <Label text={'Welcome to the Pi Dashboard'}/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
                         <TemperatureChart/>

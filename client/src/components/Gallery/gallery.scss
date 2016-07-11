@@ -21,8 +21,9 @@
 @media only screen and (max-device-width: 480px) {
     .galleryElement {
         margin-left: 0;
+        margin-right: 0;
     }
-    .galleryHalfWidth {
+    .galleryHalfWidth, .galleryFullWidth {
         width: 100%;
     }
 }

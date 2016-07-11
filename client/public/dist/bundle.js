@@ -32628,7 +32628,7 @@
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
-	                        _react2.default.createElement(_Label2.default, { text: 'Welcome to the the Pi Dashboard' })
+	                        _react2.default.createElement(_Label2.default, { text: 'Welcome to the Pi Dashboard' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
@@ -32872,7 +32872,7 @@
 
 	        _this.getIndoorTemps = _this.getIndoorTemps.bind(_this);
 	        _this.state = {
-	            indoorTemps: [{ x: 0, y: 0 }]
+	            indoorTemps: [{ x: '2016-07-09T09:00', y: 0 }]
 	        };
 	        return _this;
 	    }
@@ -32901,13 +32901,15 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var earliestTemp = this.state.indoorTemps[0].x;
+	            var latestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(_Label2.default, { text: 'Indoor Temperature' }),
-	                _react2.default.createElement(LineChart, { legend: true, data: this.getIndoorTemps(), width: '100%', height: '600px',
-	                    viewBoxObject: { x: 0, y: 0, width: 1600, height: 600 }, title: '',
-	                    yAxisLabel: '°C', xAxisLabel: 'Time', domain: { x: [timeFormat.parse('2016-07-09T00:00'), timeFormat.parse('2016-07-10T00:00')], y: [0, 40] }, gridHorizontal: true })
+	                _react2.default.createElement(LineChart, { legend: true, data: this.getIndoorTemps(), width: '100%', height: '500px',
+	                    viewBoxObject: { x: 0, y: 0, width: 2000, height: 600 }, title: '',
+	                    yAxisLabel: '°C', xAxisLabel: 'Time', domain: { x: [earliestTemp, latestTemp], y: [0, 40] }, gridHorizontal: true })
 	            );
 	        }
 	    }]);
