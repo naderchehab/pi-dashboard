@@ -3,7 +3,6 @@
 let express = require('express');
 let fs = require('fs');
 let app = express();
-let compression = require('compression');
 let bodyParser = require('body-parser');
 let errorHandler = require('errorhandler');
 let methodOverride = require('method-override');
@@ -23,7 +22,6 @@ app.use(errorHandler({
     dumpExceptions: true,
     showStack: true
 }));
-app.use(compression());
 app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
