@@ -1,10 +1,12 @@
-let credentials = require('./secret.json');
-let Gpio = require('onoff').Gpio;
-let led = new Gpio(26, 'out'); // led is used for testing
-let exec = require('child_process').exec;
-let fs = require('fs');
+const credentials = require('./secret.json');
+const Gpio = require('onoff').Gpio;
+const exec = require('child_process').exec;
+const fs = require('fs');
+
+const led = new Gpio(26, 'out'); // led is used for testing
 
 const STATE_FILE = 'state.json';
+const INDOOR_TEMPS_FILE = 'indoorTemps.json';
 
 function validatePassword(username, password) {
     return username === credentials.username && password === credentials.password;
@@ -38,6 +40,12 @@ function getState(callback) {
     })
 }
 
+function getIndoorTemps(callback) {
+    fs.readFile(INDOOR_TEMPS_FILE, 'utf-8', (err, data) => {
+        callback(err, JSON.parse(data).data);
+    })
+}
+
 function toggleLed(powerOn, res) {
     led.writeSync(powerOn ? 1 : 0);
     _saveState(powerOn, () => {
@@ -51,6 +59,7 @@ function toggleLed(powerOn, res) {
 module.exports = {
     toggleLed,
     getState,
+    getIndoorTemps,
     sendCommand,
     validatePassword
 };

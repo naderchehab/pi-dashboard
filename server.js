@@ -82,6 +82,15 @@ app.get('/getState', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     });
 });
 
+app.get('/getIndoorTemps', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    utils.getIndoorTemps((err, data) => {
+        if (err) {
+            return res.json({success: false, error: err});
+        }
+        res.json({success: true, indoorTemps: data});
+    });
+});
+
 app.post('/on', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
     //utils.toggleLed(true, res);

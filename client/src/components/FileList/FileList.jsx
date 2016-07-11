@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import FileItem from './FileItem';
 import utils from '../../utils/utils';
+import Label from '../Label/Label';
 
 export default class FileList extends Component {
     constructor(props) {
@@ -17,8 +18,8 @@ export default class FileList extends Component {
     render() {
         return (
             <div>
-                <label className='cellTitle'>Files</label>
-                <div className="file-list">
+                <Label text={'Files'} />
+                <div>
                     <ul>
                         {this.state.files.map(filename => <FileItem key={filename} filename={filename}/>)}
                     </ul>
