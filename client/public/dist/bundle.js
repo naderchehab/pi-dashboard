@@ -32583,6 +32583,10 @@
 
 	var _PowerOutlet2 = _interopRequireDefault(_PowerOutlet);
 
+	var _Lights = __webpack_require__(273);
+
+	var _Lights2 = _interopRequireDefault(_Lights);
+
 	var _TemperatureChart = __webpack_require__(208);
 
 	var _TemperatureChart2 = _interopRequireDefault(_TemperatureChart);
@@ -32643,6 +32647,11 @@
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryHalfWidth },
+	                        _react2.default.createElement(_Lights2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
 	                        _react2.default.createElement(_FileList2.default, null)
 	                    )
 	                )
@@ -32721,7 +32730,8 @@
 	            var _this3 = this;
 
 	            if (window.confirm('Are you sure?')) {
-	                _utils2.default.callApi(this.state.powerOn ? '/off' : '/on', 'POST', function (data) {
+	                console.log(this.state.powerOn);
+	                _utils2.default.callApi(this.state.powerOn ? '/turnOff/powerOutlet' : '/turnOn/powerOutlet', 'POST', function (data) {
 	                    return _this3.setState({ powerOn: data.powerOn });
 	                });
 	            }
@@ -46898,6 +46908,108 @@
 
 	// removed by extract-text-webpack-plugin
 	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utils = __webpack_require__(170);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	var _lights = __webpack_require__(274);
+
+	var _lights2 = _interopRequireDefault(_lights);
+
+	var _Label = __webpack_require__(206);
+
+	var _Label2 = _interopRequireDefault(_Label);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Lights = function (_Component) {
+	    _inherits(Lights, _Component);
+
+	    function Lights(props) {
+	        _classCallCheck(this, Lights);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Lights).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.state = {
+	            lightsOn: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Lights, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _utils2.default.callApi('/getState', 'GET', function (data) {
+	                return _this2.setState({ lightsOn: data.lightsOn });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange() {
+	            var _this3 = this;
+
+	            if (window.confirm('Are you sure?')) {
+	                _utils2.default.callApi(this.state.lightsOn ? '/turnOff/lights' : '/turnOn/lights', 'POST', function (data) {
+	                    return _this3.setState({ lightsOn: data.lightsOn });
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Label2.default, { text: 'Lights' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _lights2.default.slide },
+	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'lights-status', name: 'check', checked: this.state.lightsOn, onClick: this.handleChange }),
+	                    _react2.default.createElement('label', { htmlFor: 'lights-status' })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Lights;
+	}(_react.Component);
+
+	exports.default = Lights;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	// removed by extract-text-webpack-plugin
+	module.exports = { "slide": "lights__slide___3zv2D" };
 
 /***/ }
 /******/ ]);

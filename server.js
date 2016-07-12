@@ -76,8 +76,36 @@ app.get('/getState', ensureLogin.ensureLoggedIn('/'), (req, res) => {
         if (err) {
             return res.json({success: false, error: err});
         }
-        res.json({success: true, powerOn: data.powerOn});
+        res.json({success: true, powerOn: data.powerOn, lightsOn: data.lightsOn});
     });
+});
+
+app.post('/turnOn/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    let device = req.params.device;
+    switch (device) {
+        case 'powerOutlet':
+        console.log("power outlet on");
+            //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
+            break;
+        case 'lights':
+            utils.toggleLights(true, res);
+            break;
+        default:
+    }
+});
+
+app.post('/turnOff/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    let device = req.params.device;
+    switch (device) {
+        case 'powerOutlet':
+        console.log("power outlet off");
+            //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', true, (result) => res.json(result));
+            break;
+        case 'lights':
+            utils.toggleLights(false, res);
+            break;
+        default:
+    }
 });
 
 app.get('/getIndoorTemps', ensureLogin.ensureLoggedIn('/'), (req, res) => {
@@ -87,16 +115,6 @@ app.get('/getIndoorTemps', ensureLogin.ensureLoggedIn('/'), (req, res) => {
         }
         res.json({success: true, indoorTemps: data});
     });
-});
-
-app.post('/on', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
-    //utils.toggleLed(true, res);
-});
-
-app.post('/off', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', false, (result) => res.json(result));
-    //utils.toggleLed(false, res);
 });
 
 app.get('/getFiles', ensureLogin.ensureLoggedIn('/'), (req, res) => {

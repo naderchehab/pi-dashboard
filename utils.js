@@ -12,7 +12,7 @@ function validatePassword(username, password) {
     return username === credentials.username && password === credentials.password;
 }
 
-function sendCommand(command, powerOn, callback) {
+function sendCommand(command, device, turnOn, callback) {
     exec(command, (error, stdout, stderr) => {
         if (error) {
             return callback({
@@ -21,17 +21,20 @@ function sendCommand(command, powerOn, callback) {
             });
         }
 
-        _saveState(powerOn, () => {
-            callback({
+        _saveState(device, turnOn, () => {
+            let obj = {
                 success: true,
-                powerOn
-            });
+            };
+            obj[device] = turnOn;
+            callback(obj);
         });
     });
 }
 
-function _saveState(powerOn, callback) {
-    fs.writeFile(STATE_FILE, JSON.stringify({powerOn}), callback);
+function _saveState(device, turnOn, callback) {
+    let obj = {};
+    obj[device] = turnOn;
+    fs.writeFile(STATE_FILE, JSON.stringify(obj), callback);
 }
 
 function getState(callback) {
@@ -46,18 +49,18 @@ function getIndoorTemps(callback) {
     })
 }
 
-function toggleLed(powerOn, res) {
-    led.writeSync(powerOn ? 1 : 0);
-    _saveState(powerOn, () => {
+function toggleLights(lightsOn, res) {
+    led.writeSync(lightsOn ? 1 : 0);
+    _saveState("lights", lightsOn, () => {
         res.json({
             success: true,
-            powerOn
+            lightsOn
         });
     });
 }
 
 module.exports = {
-    toggleLed,
+    toggleLights,
     getState,
     getIndoorTemps,
     sendCommand,

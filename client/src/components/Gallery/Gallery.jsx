@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PowerOutlet from '../PowerOutlet/PowerOutlet';
+import Lights from '../Lights/Lights';
 import TemperatureChart from '../TemperatureChart/TemperatureChart';
 import FileItems from '../FileList/FileList';
 import Label from '../Label/Label';
@@ -20,6 +21,9 @@ export default class Home extends Component {
                         <PowerOutlet/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryHalfWidth}>
+                        <Lights/>
+                    </li>
+                    <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
                         <FileItems/>
                     </li>
                 </ul>
