@@ -32583,15 +32583,15 @@
 
 	var _PowerOutlet2 = _interopRequireDefault(_PowerOutlet);
 
-	var _Lights = __webpack_require__(273);
+	var _Lights = __webpack_require__(208);
 
 	var _Lights2 = _interopRequireDefault(_Lights);
 
-	var _TemperatureChart = __webpack_require__(208);
+	var _TemperatureChart = __webpack_require__(210);
 
 	var _TemperatureChart2 = _interopRequireDefault(_TemperatureChart);
 
-	var _FileList = __webpack_require__(270);
+	var _FileList = __webpack_require__(272);
 
 	var _FileList2 = _interopRequireDefault(_FileList);
 
@@ -32599,7 +32599,7 @@
 
 	var _Label2 = _interopRequireDefault(_Label);
 
-	var _gallery = __webpack_require__(272);
+	var _gallery = __webpack_require__(274);
 
 	var _gallery2 = _interopRequireDefault(_gallery);
 
@@ -32730,7 +32730,6 @@
 	            var _this3 = this;
 
 	            if (window.confirm('Are you sure?')) {
-	                console.log(this.state.powerOn);
 	                _utils2.default.callApi(this.state.powerOn ? '/turnOff/powerOutlet' : '/turnOn/powerOutlet', 'POST', function (data) {
 	                    return _this3.setState({ powerOn: data.powerOn });
 	                });
@@ -32845,7 +32844,109 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _rd = __webpack_require__(209);
+	var _utils = __webpack_require__(170);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	var _lights = __webpack_require__(209);
+
+	var _lights2 = _interopRequireDefault(_lights);
+
+	var _Label = __webpack_require__(206);
+
+	var _Label2 = _interopRequireDefault(_Label);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Lights = function (_Component) {
+	    _inherits(Lights, _Component);
+
+	    function Lights(props) {
+	        _classCallCheck(this, Lights);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Lights).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.state = {
+	            lightsOn: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Lights, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _utils2.default.callApi('/getState', 'GET', function (data) {
+	                return _this2.setState({ lightsOn: data.lightsOn });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange() {
+	            var _this3 = this;
+
+	            if (window.confirm('Are you sure?')) {
+	                _utils2.default.callApi(this.state.lightsOn ? '/turnOff/lights' : '/turnOn/lights', 'POST', function (data) {
+	                    return _this3.setState({ lightsOn: data.lightsOn });
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Label2.default, { text: 'Lights' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _lights2.default.slide },
+	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'lights-status', name: 'check', checked: this.state.lightsOn, onClick: this.handleChange }),
+	                    _react2.default.createElement('label', { htmlFor: 'lights-status' })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Lights;
+	}(_react.Component);
+
+	exports.default = Lights;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	// removed by extract-text-webpack-plugin
+	module.exports = { "slide": "lights__slide___3zv2D" };
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _rd = __webpack_require__(211);
 
 	var _rd2 = _interopRequireDefault(_rd);
 
@@ -32853,7 +32954,7 @@
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _temperatureChart = __webpack_require__(269);
+	var _temperatureChart = __webpack_require__(271);
 
 	var _temperatureChart2 = _interopRequireDefault(_temperatureChart);
 
@@ -32930,45 +33031,45 @@
 	exports.default = Chart;
 
 /***/ },
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.BarChart = __webpack_require__(210).BarChart;
-	exports.LineChart = __webpack_require__(237).LineChart;
-	exports.PieChart = __webpack_require__(243).PieChart;
-	exports.AreaChart = __webpack_require__(248).AreaChart;
-	exports.Treemap = __webpack_require__(253).Treemap;
-	exports.ScatterChart = __webpack_require__(258).ScatterChart;
-	exports.CandlestickChart = __webpack_require__(263).CandlestickChart;
-
-/***/ },
-/* 210 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.BarChart = __webpack_require__(211);
-
-/***/ },
 /* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var DataSeries = __webpack_require__(213);
+	exports.BarChart = __webpack_require__(212).BarChart;
+	exports.LineChart = __webpack_require__(239).LineChart;
+	exports.PieChart = __webpack_require__(245).PieChart;
+	exports.AreaChart = __webpack_require__(250).AreaChart;
+	exports.Treemap = __webpack_require__(255).Treemap;
+	exports.ScatterChart = __webpack_require__(260).ScatterChart;
+	exports.CandlestickChart = __webpack_require__(265).CandlestickChart;
 
-	var _require = __webpack_require__(217);
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.BarChart = __webpack_require__(213);
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(214);
+	var DataSeries = __webpack_require__(215);
+
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 
-	var _require2 = __webpack_require__(232);
+	var _require2 = __webpack_require__(234);
 
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -33169,7 +33270,7 @@
 	});
 
 /***/ },
-/* 212 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -42728,13 +42829,13 @@
 	}();
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var BarContainer = __webpack_require__(214);
+	var BarContainer = __webpack_require__(216);
 
 	module.exports = React.createClass({
 
@@ -42804,7 +42905,7 @@
 	});
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42817,8 +42918,8 @@
 
 	var findDOMNode = _require.findDOMNode;
 
-	var Bar = __webpack_require__(215);
-	var shade = __webpack_require__(216).shade;
+	var Bar = __webpack_require__(217);
+	var shade = __webpack_require__(218).shade;
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -42868,7 +42969,7 @@
 	});
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42910,14 +43011,14 @@
 	});
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 
 	exports.calculateScales = function (width, height, xValues, yValues) {
 	  var xDomain = arguments.length <= 4 || arguments[4] === undefined ? [] : arguments[4];
@@ -43073,30 +43174,30 @@
 	};
 
 /***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.XAxis = __webpack_require__(218).XAxis;
-	exports.YAxis = __webpack_require__(218).YAxis;
-	exports.Chart = __webpack_require__(224).Chart;
-	exports.LegendChart = __webpack_require__(224).LegendChart;
-	exports.Legend = __webpack_require__(228);
-	exports.Tooltip = __webpack_require__(229);
-	exports.Voronoi = __webpack_require__(230);
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.XAxis = __webpack_require__(219);
-	exports.YAxis = __webpack_require__(223);
-
-/***/ },
 /* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.XAxis = __webpack_require__(220).XAxis;
+	exports.YAxis = __webpack_require__(220).YAxis;
+	exports.Chart = __webpack_require__(226).Chart;
+	exports.LegendChart = __webpack_require__(226).LegendChart;
+	exports.Legend = __webpack_require__(230);
+	exports.Tooltip = __webpack_require__(231);
+	exports.Voronoi = __webpack_require__(232);
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.XAxis = __webpack_require__(221);
+	exports.YAxis = __webpack_require__(225);
+
+/***/ },
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43104,10 +43205,10 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var AxisTicks = __webpack_require__(220);
-	var AxisLine = __webpack_require__(221);
-	var Label = __webpack_require__(222);
+	var d3 = __webpack_require__(214);
+	var AxisTicks = __webpack_require__(222);
+	var AxisLine = __webpack_require__(223);
+	var Label = __webpack_require__(224);
 
 	module.exports = React.createClass({
 
@@ -43205,7 +43306,7 @@
 	});
 
 /***/ },
-/* 220 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43452,7 +43553,7 @@
 	});
 
 /***/ },
-/* 221 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43517,7 +43618,7 @@
 	});
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43591,7 +43692,7 @@
 	});
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43599,10 +43700,10 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var AxisTicks = __webpack_require__(220);
-	var AxisLine = __webpack_require__(221);
-	var Label = __webpack_require__(222);
+	var d3 = __webpack_require__(214);
+	var AxisTicks = __webpack_require__(222);
+	var AxisLine = __webpack_require__(223);
+	var Label = __webpack_require__(224);
 
 	module.exports = React.createClass({
 
@@ -43704,17 +43805,17 @@
 	});
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.BasicChart = __webpack_require__(225);
-	exports.Chart = __webpack_require__(226);
-	exports.LegendChart = __webpack_require__(227);
+	exports.BasicChart = __webpack_require__(227);
+	exports.Chart = __webpack_require__(228);
+	exports.LegendChart = __webpack_require__(229);
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43786,7 +43887,7 @@
 	});
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43794,8 +43895,8 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(2);
-	var LegendChart = __webpack_require__(227);
-	var BasicChart = __webpack_require__(225);
+	var LegendChart = __webpack_require__(229);
+	var BasicChart = __webpack_require__(227);
 
 	module.exports = React.createClass({
 
@@ -43836,14 +43937,14 @@
 	});
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var Legend = __webpack_require__(228);
-	var d3 = __webpack_require__(212);
+	var Legend = __webpack_require__(230);
+	var d3 = __webpack_require__(214);
 
 	module.exports = React.createClass({
 
@@ -43956,13 +44057,13 @@
 	});
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 
 	module.exports = React.createClass({
 
@@ -44048,7 +44149,7 @@
 	});
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44102,14 +44203,14 @@
 	});
 
 /***/ },
-/* 230 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var Polygon = __webpack_require__(231);
+	var d3 = __webpack_require__(214);
+	var Polygon = __webpack_require__(233);
 
 	module.exports = React.createClass({
 
@@ -44150,7 +44251,7 @@
 	});
 
 /***/ },
-/* 231 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44198,24 +44299,24 @@
 	});
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.CartesianChartPropsMixin = __webpack_require__(233);
-	exports.DefaultAccessorsMixin = __webpack_require__(234);
-	exports.ViewBoxMixin = __webpack_require__(235);
-	exports.TooltipMixin = __webpack_require__(236);
+	exports.CartesianChartPropsMixin = __webpack_require__(235);
+	exports.DefaultAccessorsMixin = __webpack_require__(236);
+	exports.ViewBoxMixin = __webpack_require__(237);
+	exports.TooltipMixin = __webpack_require__(238);
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 
 	module.exports = {
 
@@ -44297,7 +44398,7 @@
 	};
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44323,7 +44424,7 @@
 	};
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -44405,7 +44506,7 @@
 	};
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44474,32 +44575,32 @@
 	};
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.LineChart = __webpack_require__(238);
+	exports.LineChart = __webpack_require__(240);
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
 
-	var _require = __webpack_require__(217);
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 
-	var DataSeries = __webpack_require__(239);
-	var utils = __webpack_require__(216);
+	var DataSeries = __webpack_require__(241);
+	var utils = __webpack_require__(218);
 
-	var _require2 = __webpack_require__(232);
+	var _require2 = __webpack_require__(234);
 
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -44654,15 +44755,15 @@
 	});
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var VoronoiCircleContainer = __webpack_require__(240);
-	var Line = __webpack_require__(242);
+	var d3 = __webpack_require__(214);
+	var VoronoiCircleContainer = __webpack_require__(242);
+	var Line = __webpack_require__(244);
 
 	module.exports = React.createClass({
 
@@ -44783,7 +44884,7 @@
 	});
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44794,8 +44895,8 @@
 
 	var findDOMNode = _require.findDOMNode;
 
-	var shade = __webpack_require__(216).shade;
-	var VoronoiCircle = __webpack_require__(241);
+	var shade = __webpack_require__(218).shade;
+	var VoronoiCircle = __webpack_require__(243);
 
 	module.exports = React.createClass({
 
@@ -44871,7 +44972,7 @@
 	});
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44923,7 +45024,7 @@
 	});
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44964,29 +45065,29 @@
 	});
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.PieChart = __webpack_require__(244);
+	exports.PieChart = __webpack_require__(246);
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 	var React = __webpack_require__(2);
-	var DataSeries = __webpack_require__(245);
+	var DataSeries = __webpack_require__(247);
 
-	var _require = __webpack_require__(217);
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var Tooltip = _require.Tooltip;
 
-	var TooltipMixin = __webpack_require__(232).TooltipMixin;
+	var TooltipMixin = __webpack_require__(234).TooltipMixin;
 
 	module.exports = React.createClass({
 
@@ -45080,14 +45181,14 @@
 	});
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var ArcContainer = __webpack_require__(246);
+	var d3 = __webpack_require__(214);
+	var ArcContainer = __webpack_require__(248);
 
 	module.exports = React.createClass({
 
@@ -45156,7 +45257,7 @@
 	});
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45169,8 +45270,8 @@
 
 	var findDOMNode = _require.findDOMNode;
 
-	var shade = __webpack_require__(216).shade;
-	var Arc = __webpack_require__(247);
+	var shade = __webpack_require__(218).shade;
+	var Arc = __webpack_require__(249);
 
 	module.exports = React.createClass({
 
@@ -45215,13 +45316,13 @@
 	});
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 
 	module.exports = React.createClass({
 
@@ -45329,30 +45430,30 @@
 	});
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.AreaChart = __webpack_require__(249);
+	exports.AreaChart = __webpack_require__(251);
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var DataSeries = __webpack_require__(250);
+	var d3 = __webpack_require__(214);
+	var DataSeries = __webpack_require__(252);
 
-	var _require = __webpack_require__(217);
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 
-	var _require2 = __webpack_require__(232);
+	var _require2 = __webpack_require__(234);
 
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -45523,14 +45624,14 @@
 	});
 
 /***/ },
-/* 250 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var AreaContainer = __webpack_require__(251);
+	var d3 = __webpack_require__(214);
+	var AreaContainer = __webpack_require__(253);
 
 	module.exports = React.createClass({
 
@@ -45568,7 +45669,7 @@
 	});
 
 /***/ },
-/* 251 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45576,8 +45677,8 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(2);
-	var shade = __webpack_require__(216).shade;
-	var Area = __webpack_require__(252);
+	var shade = __webpack_require__(218).shade;
+	var Area = __webpack_require__(254);
 
 	module.exports = React.createClass({
 
@@ -45630,7 +45731,7 @@
 	});
 
 /***/ },
-/* 252 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45665,23 +45766,23 @@
 	});
 
 /***/ },
-/* 253 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.Treemap = __webpack_require__(254);
+	exports.Treemap = __webpack_require__(256);
 
 /***/ },
-/* 254 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var d3 = __webpack_require__(212);
+	var d3 = __webpack_require__(214);
 	var React = __webpack_require__(2);
-	var Chart = __webpack_require__(217).Chart;
-	var DataSeries = __webpack_require__(255);
+	var Chart = __webpack_require__(219).Chart;
+	var DataSeries = __webpack_require__(257);
 
 	module.exports = React.createClass({
 
@@ -45744,14 +45845,14 @@
 	});
 
 /***/ },
-/* 255 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var CellContainer = __webpack_require__(256);
+	var d3 = __webpack_require__(214);
+	var CellContainer = __webpack_require__(258);
 
 	module.exports = React.createClass({
 
@@ -45811,7 +45912,7 @@
 	});
 
 /***/ },
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45819,8 +45920,8 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(2);
-	var shade = __webpack_require__(216).shade;
-	var Cell = __webpack_require__(257);
+	var shade = __webpack_require__(218).shade;
+	var Cell = __webpack_require__(259);
 
 	module.exports = React.createClass({
 
@@ -45859,7 +45960,7 @@
 	});
 
 /***/ },
-/* 257 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45915,32 +46016,32 @@
 	});
 
 /***/ },
-/* 258 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.ScatterChart = __webpack_require__(259);
+	exports.ScatterChart = __webpack_require__(261);
 
 /***/ },
-/* 259 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
 
-	var _require = __webpack_require__(217);
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 
-	var DataSeries = __webpack_require__(260);
-	var utils = __webpack_require__(216);
+	var DataSeries = __webpack_require__(262);
+	var utils = __webpack_require__(218);
 
-	var _require2 = __webpack_require__(232);
+	var _require2 = __webpack_require__(234);
 
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -46102,14 +46203,14 @@
 	});
 
 /***/ },
-/* 260 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var VoronoiCircleContainer = __webpack_require__(261);
+	var d3 = __webpack_require__(214);
+	var VoronoiCircleContainer = __webpack_require__(263);
 
 	module.exports = React.createClass({
 
@@ -46192,7 +46293,7 @@
 	});
 
 /***/ },
-/* 261 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46203,8 +46304,8 @@
 
 	var findDOMNode = _require.findDOMNode;
 
-	var shade = __webpack_require__(216).shade;
-	var VoronoiCircle = __webpack_require__(262);
+	var shade = __webpack_require__(218).shade;
+	var VoronoiCircle = __webpack_require__(264);
 
 	module.exports = React.createClass({
 
@@ -46288,7 +46389,7 @@
 	});
 
 /***/ },
-/* 262 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46343,31 +46444,31 @@
 	});
 
 /***/ },
-/* 263 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.CandlestickChart = __webpack_require__(264);
+	exports.CandlestickChart = __webpack_require__(266);
 
 /***/ },
-/* 264 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(212);
-	var utils = __webpack_require__(216);
-	var DataSeries = __webpack_require__(265);
+	var d3 = __webpack_require__(214);
+	var utils = __webpack_require__(218);
+	var DataSeries = __webpack_require__(267);
 
-	var _require = __webpack_require__(217);
+	var _require = __webpack_require__(219);
 
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 
-	var _require2 = __webpack_require__(232);
+	var _require2 = __webpack_require__(234);
 
 	var ViewBoxMixin = _require2.ViewBoxMixin;
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
@@ -46517,13 +46618,13 @@
 	});
 
 /***/ },
-/* 265 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var CandlestickContainer = __webpack_require__(266);
+	var CandlestickContainer = __webpack_require__(268);
 
 	module.exports = React.createClass({
 
@@ -46579,15 +46680,15 @@
 	});
 
 /***/ },
-/* 266 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var utils = __webpack_require__(216);
-	var Candle = __webpack_require__(267);
-	var Wick = __webpack_require__(268);
+	var utils = __webpack_require__(218);
+	var Candle = __webpack_require__(269);
+	var Wick = __webpack_require__(270);
 
 	module.exports = React.createClass({
 
@@ -46667,7 +46768,7 @@
 	});
 
 /***/ },
-/* 267 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46713,7 +46814,7 @@
 	});
 
 /***/ },
-/* 268 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46755,14 +46856,14 @@
 	});
 
 /***/ },
-/* 269 */
+/* 271 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-/* 270 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46777,7 +46878,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _FileItem = __webpack_require__(271);
+	var _FileItem = __webpack_require__(273);
 
 	var _FileItem2 = _interopRequireDefault(_FileItem);
 
@@ -46848,7 +46949,7 @@
 	exports.default = FileList;
 
 /***/ },
-/* 271 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46901,115 +47002,13 @@
 	exports.default = FileItem;
 
 /***/ },
-/* 272 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	// removed by extract-text-webpack-plugin
-	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _utils = __webpack_require__(170);
-
-	var _utils2 = _interopRequireDefault(_utils);
-
-	var _lights = __webpack_require__(274);
-
-	var _lights2 = _interopRequireDefault(_lights);
-
-	var _Label = __webpack_require__(206);
-
-	var _Label2 = _interopRequireDefault(_Label);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Lights = function (_Component) {
-	    _inherits(Lights, _Component);
-
-	    function Lights(props) {
-	        _classCallCheck(this, Lights);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Lights).call(this, props));
-
-	        _this.handleChange = _this.handleChange.bind(_this);
-	        _this.state = {
-	            lightsOn: false
-	        };
-	        return _this;
-	    }
-
-	    _createClass(Lights, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-
-	            _utils2.default.callApi('/getState', 'GET', function (data) {
-	                return _this2.setState({ lightsOn: data.lightsOn });
-	            });
-	        }
-	    }, {
-	        key: 'handleChange',
-	        value: function handleChange() {
-	            var _this3 = this;
-
-	            if (window.confirm('Are you sure?')) {
-	                _utils2.default.callApi(this.state.lightsOn ? '/turnOff/lights' : '/turnOn/lights', 'POST', function (data) {
-	                    return _this3.setState({ lightsOn: data.lightsOn });
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Label2.default, { text: 'Lights' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: _lights2.default.slide },
-	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'lights-status', name: 'check', checked: this.state.lightsOn, onClick: this.handleChange }),
-	                    _react2.default.createElement('label', { htmlFor: 'lights-status' })
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Lights;
-	}(_react.Component);
-
-	exports.default = Lights;
-
-/***/ },
 /* 274 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	// removed by extract-text-webpack-plugin
-	module.exports = { "slide": "lights__slide___3zv2D" };
+	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
 
 /***/ }
 /******/ ]);

@@ -18,7 +18,6 @@ export default class PowerOutlet extends Component {
 
     handleChange() {
         if (window.confirm('Are you sure?')) {
-            console.log(this.state.powerOn);
             utils.callApi(this.state.powerOn
                 ? '/turnOff/powerOutlet'
                 : '/turnOn/powerOutlet', 'POST', data => this.setState({powerOn: data.powerOn}));

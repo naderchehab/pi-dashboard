@@ -19,6 +19,7 @@
     "express": "^4.1.2",
     "express-session": "^1.14.0",
     "method-override": "^1.0.0",
+    "mongodb": "^2.2.1",
     "onoff": "^1.1.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",

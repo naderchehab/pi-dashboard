@@ -12,7 +12,7 @@ function validatePassword(username, password) {
     return username === credentials.username && password === credentials.password;
 }
 
-function sendCommand(command, device, turnOn, callback) {
+function sendCommand(command, callback) {
     exec(command, (error, stdout, stderr) => {
         if (error) {
             return callback({
@@ -20,6 +20,8 @@ function sendCommand(command, device, turnOn, callback) {
                 error
             });
         }
+
+        callback({success: true});
 
         _saveState(device, turnOn, () => {
             let obj = {

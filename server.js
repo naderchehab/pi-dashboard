@@ -39,6 +39,22 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 app.use(express.static(publicDir));
 
+//--------------------------------
+// TODO: work in progress
+var MongoClient = require('mongodb').MongoClient;
+
+// Connect to the db
+MongoClient.connect("mongodb://localhost:27017/pi", function(err, db) {
+  if(err) {
+    console.log("We are not connected", err);
+  }
+  else {
+      console.log("We are connected");
+  }
+});
+
+//--------------------------------
+
 passport.serializeUser((user, done) => {
     done(null, user);
 });
@@ -109,6 +125,7 @@ app.post('/turnOff/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
 });
 
 app.get('/getIndoorTemps', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    utils.sendCommand('sudo /var/www/pi-dashboard/Adafruit_Python_DHT/examples/AdafruitDHT.py 2302 4', true, (result) => res.json(result));
     utils.getIndoorTemps((err, data) => {
         if (err) {
             return res.json({success: false, error: err});
