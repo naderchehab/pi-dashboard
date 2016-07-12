@@ -32710,7 +32710,7 @@
 
 	        _this.handleChange = _this.handleChange.bind(_this);
 	        _this.state = {
-	            powerOn: false
+	            powerOutletOn: false
 	        };
 	        return _this;
 	    }
@@ -32720,8 +32720,8 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _utils2.default.callApi('/getState', 'GET', function (data) {
-	                return _this2.setState({ powerOn: data.powerOn });
+	            _utils2.default.callApi('/getState/powerOutlet', 'GET', function (data) {
+	                return _this2.setState({ powerOutletOn: data.docs[0].state });
 	            });
 	        }
 	    }, {
@@ -32730,8 +32730,8 @@
 	            var _this3 = this;
 
 	            if (window.confirm('Are you sure?')) {
-	                _utils2.default.callApi(this.state.powerOn ? '/turnOff/powerOutlet' : '/turnOn/powerOutlet', 'POST', function (data) {
-	                    return _this3.setState({ powerOn: data.powerOn });
+	                _utils2.default.callApi(this.state.powerOutletOn ? '/toggle/powerOutlet/off' : '/toggle/powerOutlet/on', 'POST', function (data) {
+	                    return _this3.setState({ powerOutletOn: data.state });
 	                });
 	            }
 	        }
@@ -32745,8 +32745,8 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: _powerOutlet2.default.slide },
-	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'outlet-status', name: 'check', checked: this.state.powerOn, onClick: this.handleChange }),
-	                    _react2.default.createElement('label', { htmlFor: 'outlet-status' })
+	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'power-outlet-state', name: 'check', checked: this.state.powerOutletOn, onClick: this.handleChange }),
+	                    _react2.default.createElement('label', { htmlFor: 'power-outlet-state' })
 	                )
 	            );
 	        }
@@ -32884,8 +32884,8 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _utils2.default.callApi('/getState', 'GET', function (data) {
-	                return _this2.setState({ lightsOn: data.lightsOn });
+	            _utils2.default.callApi('/getState/lights', 'GET', function (data) {
+	                return _this2.setState({ lightsOn: data.docs[0].state });
 	            });
 	        }
 	    }, {
@@ -32894,8 +32894,8 @@
 	            var _this3 = this;
 
 	            if (window.confirm('Are you sure?')) {
-	                _utils2.default.callApi(this.state.lightsOn ? '/turnOff/lights' : '/turnOn/lights', 'POST', function (data) {
-	                    return _this3.setState({ lightsOn: data.lightsOn });
+	                _utils2.default.callApi(this.state.lightsOn ? '/toggle/lights/off' : '/toggle/lights/on', 'POST', function (data) {
+	                    return _this3.setState({ lightsOn: data.state });
 	                });
 	            }
 	        }
@@ -32971,7 +32971,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var LineChart = _rd2.default.LineChart;
-	var timeFormat = d3.time.format('%Y-%m-%dT%H:%M');
+	var timeFormat = d3.time.format('%Y-%m-%dT%H:%M:%S.%LZ');
 
 	var Chart = function (_Component) {
 	    _inherits(Chart, _Component);
@@ -32993,9 +32993,12 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _utils2.default.callApi('/getIndoorTemps', 'GET', function (data) {
-	                var indoorTemps = data.indoorTemps.map(function (temp) {
-	                    return { x: timeFormat.parse(temp.x), y: temp.y };
+	            _utils2.default.callApi('/getState/temperature', 'GET', function (data) {
+	                if (!data.success) {
+	                    alert('Error getting temperatures');
+	                }
+	                var indoorTemps = data.docs.map(function (temp) {
+	                    return { x: timeFormat.parse(temp.insertDate), y: temp.temperature };
 	                });
 	                _this2.setState({ indoorTemps: indoorTemps });
 	            });
@@ -33012,8 +33015,8 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var earliestTemp = this.state.indoorTemps[0].x;
-	            var latestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
+	            var latestTemp = this.state.indoorTemps[0].x;
+	            var earliestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
 	            return _react2.default.createElement(
 	                'div',
 	                null,

@@ -8,19 +8,19 @@ export default class PowerOutlet extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            powerOn: false
+            powerOutletOn: false
         };
     }
 
     componentDidMount() {
-        utils.callApi('/getState', 'GET', data => this.setState({powerOn: data.powerOn}));
+        utils.callApi('/getState/powerOutlet', 'GET', data => this.setState({powerOutletOn: data.docs[0].state}));
     }
 
     handleChange() {
         if (window.confirm('Are you sure?')) {
-            utils.callApi(this.state.powerOn
-                ? '/turnOff/powerOutlet'
-                : '/turnOn/powerOutlet', 'POST', data => this.setState({powerOn: data.powerOn}));
+            utils.callApi(this.state.powerOutletOn
+                ? '/toggle/powerOutlet/off'
+                : '/toggle/powerOutlet/on', 'POST', data => this.setState({powerOutletOn: data.state}));
         }
     }
 
@@ -29,8 +29,8 @@ export default class PowerOutlet extends Component {
             <div>
                 <Label text={'Power Outlet'} />
                 <div className={theme.slide}>
-                    <input type='checkbox' value='None' id='outlet-status' name='check' checked={this.state.powerOn} onClick={this.handleChange}/>
-                    <label htmlFor='outlet-status'></label>
+                    <input type='checkbox' value='None' id='power-outlet-state' name='check' checked={this.state.powerOutletOn} onClick={this.handleChange}/>
+                    <label htmlFor='power-outlet-state'></label>
                 </div>
             </div>
         );

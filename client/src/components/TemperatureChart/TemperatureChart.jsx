@@ -5,7 +5,7 @@ import theme from './temperatureChart.scss';
 import Label from '../Label/Label';
 
 const LineChart = rd3.LineChart;
-let timeFormat = d3.time.format('%Y-%m-%dT%H:%M');
+let timeFormat = d3.time.format('%Y-%m-%dT%H:%M:%S.%LZ');
 
 export default class Chart extends Component {
     constructor(props) {
@@ -17,9 +17,12 @@ export default class Chart extends Component {
     }
 
     componentDidMount() {
-        utils.callApi('/getIndoorTemps', 'GET', data => {
-            let indoorTemps = data.indoorTemps.map(temp => {
-                return {x: timeFormat.parse(temp.x), y: temp.y};
+        utils.callApi('/getState/temperature', 'GET', data => {
+            if (!data.success) {
+                alert('Error getting temperatures');
+            }
+            let indoorTemps = data.docs.map(temp => {
+                return {x: timeFormat.parse(temp.insertDate), y: temp.temperature};
             });
             this.setState({indoorTemps});
         });
@@ -34,8 +37,8 @@ export default class Chart extends Component {
     }
 
     render() {
-        let earliestTemp = this.state.indoorTemps[0].x;
-        let latestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
+        let latestTemp = this.state.indoorTemps[0].x;
+        let earliestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
         return (
             <div>
                 <Label text={'Indoor Temperature'} />

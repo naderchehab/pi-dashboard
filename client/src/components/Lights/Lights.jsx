@@ -13,14 +13,14 @@ export default class Lights extends Component {
     }
 
     componentDidMount() {
-        utils.callApi('/getState', 'GET', data => this.setState({lightsOn: data.lightsOn}));
+        utils.callApi('/getState/lights', 'GET', data => this.setState({lightsOn: data.docs[0].state}));
     }
 
     handleChange() {
         if (window.confirm('Are you sure?')) {
             utils.callApi(this.state.lightsOn
-                ? '/turnOff/lights'
-                : '/turnOn/lights', 'POST', data => this.setState({lightsOn: data.lightsOn}));
+                ? '/toggle/lights/off'
+                : '/toggle/lights/on', 'POST', data => this.setState({lightsOn: data.state}));
         }
     }
 

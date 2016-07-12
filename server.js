@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 
-let express = require('express');
-let fs = require('fs');
-let app = express();
-let bodyParser = require('body-parser');
-let errorHandler = require('errorhandler');
-let methodOverride = require('method-override');
-let port = parseInt(process.env.PORT, 10) || 8080;
-let publicDir = __dirname + '/client/public';
-let path = require('path');
-let session = require('express-session');
-let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy;
-let ensureLogin = require('connect-ensure-login');
-let utils = require('./utils');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const errorHandler = require('errorhandler');
+const methodOverride = require('method-override');
+const port = parseInt(process.env.PORT, 10) || 8080;
+const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const ensureLogin = require('connect-ensure-login');
+const controller = require('./src/controller');
+const scheduler = require('./src/scheduler');
+const utils = require('./src/utils');
+
+const publicDir = __dirname + '/client/public';
+
+scheduler.init();
 
 app.use(methodOverride());
 app.use(bodyParser.json());
@@ -38,22 +42,6 @@ passport.use(new LocalStrategy((username, password, done) => {
 ));
 
 app.use(express.static(publicDir));
-
-//--------------------------------
-// TODO: work in progress
-var MongoClient = require('mongodb').MongoClient;
-
-// Connect to the db
-MongoClient.connect("mongodb://localhost:27017/pi", function(err, db) {
-  if(err) {
-    console.log("We are not connected", err);
-  }
-  else {
-      console.log("We are connected");
-  }
-});
-
-//--------------------------------
 
 passport.serializeUser((user, done) => {
     done(null, user);
@@ -87,60 +75,44 @@ app.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-app.get('/getState', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    utils.getState((err, data) => {
+app.get('/getState/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    let device = req.params.device;
+    controller.getState(device, (err, docs) => {
         if (err) {
             return res.json({success: false, error: err});
         }
-        res.json({success: true, powerOn: data.powerOn, lightsOn: data.lightsOn});
+        res.json({success: true, docs});
     });
 });
 
-app.post('/turnOn/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+app.post('/toggle/:device/:state', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     let device = req.params.device;
-    switch (device) {
-        case 'powerOutlet':
-        console.log("power outlet on");
-            //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', true, (result) => res.json(result));
-            break;
-        case 'lights':
-            utils.toggleLights(true, res);
-            break;
-        default:
-    }
-});
+    let state = req.params.state === 'on';
 
-app.post('/turnOff/:device', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    let device = req.params.device;
-    switch (device) {
-        case 'powerOutlet':
-        console.log("power outlet off");
-            //utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21820 -l 174', true, (result) => res.json(result));
-            break;
-        case 'lights':
-            utils.toggleLights(false, res);
-            break;
-        default:
-    }
-});
-
-app.get('/getIndoorTemps', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    utils.sendCommand('sudo /var/www/pi-dashboard/Adafruit_Python_DHT/examples/AdafruitDHT.py 2302 4', true, (result) => res.json(result));
-    utils.getIndoorTemps((err, data) => {
+    controller.toggle(device, state, err => {
         if (err) {
             return res.json({success: false, error: err});
         }
-        res.json({success: true, indoorTemps: data});
+        res.json({success: true, state});
+    });
+});
+
+app.get('/getTemperature', ensureLogin.ensureLoggedIn('/'), (req, res) => {
+    controller.getState('temperature', (err, data) => {
+        if (err) {
+            return res.json({success: false, error: err});
+        }
+        res.json({success: true, temperature: data});
     });
 });
 
 app.get('/getFiles', ensureLogin.ensureLoggedIn('/'), (req, res) => {
-    fs.readdir(path.join(publicDir, '/files'), (err, files) => {
+    controller.getFiles(publicDir, (err, files) => {
         if (err) {
             return res.json({success: false, error: err});
         }
         res.json({success: true, files});
-    })
+    });
 });
 
 console.log('Dashboard server listening on port %s', port);
