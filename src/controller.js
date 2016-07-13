@@ -15,7 +15,8 @@ function toggle(device, state, callback) {
             insertState();
             break;
         case 'powerOutlet':
-            utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 21811 -l 174', (err) => {
+            let code = state ? '21811' : '21820';
+            utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend ' + code  + ' -l 174', (err) => {
                 if (err) {
                     console.log('Could not send command to power outlet');
                     return callback(err);
