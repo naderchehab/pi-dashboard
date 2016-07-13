@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../../utils/utils';
-import theme from './powerOutlet.scss';
-import Label from '../Label/Label';
+import Toggle from '../Toggle/Toggle';
 
 export default class PowerOutlet extends Component {
     constructor(props) {
@@ -26,13 +25,7 @@ export default class PowerOutlet extends Component {
 
     render() {
         return (
-            <div>
-                <Label text={'Power Outlet'} />
-                <div className={theme.slide}>
-                    <input type='checkbox' value='None' id='power-outlet-state' name='check' checked={this.state.powerOutletOn} onClick={this.handleChange}/>
-                    <label htmlFor='power-outlet-state'></label>
-                </div>
-            </div>
+            <Toggle id='power-outlet-status' label='Power Outlet' checked={this.state.powerOutletOn} onClick={this.handleChange} />
         );
     }
 }

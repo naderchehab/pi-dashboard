@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../../utils/utils';
-import theme from './lights.scss';
-import Label from '../Label/Label';
+import Toggle from '../Toggle/Toggle';
 
 export default class Lights extends Component {
     constructor(props) {
@@ -26,13 +25,7 @@ export default class Lights extends Component {
 
     render() {
         return (
-            <div>
-                <Label text={'Lights'} />
-                <div className={theme.slide}>
-                    <input type='checkbox' value='None' id='lights-status' name='check' checked={this.state.lightsOn} onClick={this.handleChange}/>
-                    <label htmlFor='lights-status'></label>
-                </div>
-            </div>
+            <Toggle id='lights-status' label='Lights' checked={this.state.lightsOn} onClick={this.handleChange} />
         );
     }
 }

@@ -32579,21 +32579,33 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _TemperatureChart = __webpack_require__(210);
+
+	var _TemperatureChart2 = _interopRequireDefault(_TemperatureChart);
+
+	var _AirConditioner = __webpack_require__(279);
+
+	var _AirConditioner2 = _interopRequireDefault(_AirConditioner);
+
 	var _PowerOutlet = __webpack_require__(204);
 
 	var _PowerOutlet2 = _interopRequireDefault(_PowerOutlet);
+
+	var _FileList = __webpack_require__(272);
+
+	var _FileList2 = _interopRequireDefault(_FileList);
 
 	var _Lights = __webpack_require__(208);
 
 	var _Lights2 = _interopRequireDefault(_Lights);
 
-	var _TemperatureChart = __webpack_require__(210);
+	var _Webcam = __webpack_require__(280);
 
-	var _TemperatureChart2 = _interopRequireDefault(_TemperatureChart);
+	var _Webcam2 = _interopRequireDefault(_Webcam);
 
-	var _FileList = __webpack_require__(272);
+	var _Gauge = __webpack_require__(277);
 
-	var _FileList2 = _interopRequireDefault(_FileList);
+	var _Gauge2 = _interopRequireDefault(_Gauge);
 
 	var _Label = __webpack_require__(206);
 
@@ -32636,18 +32648,48 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
-	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
-	                        _react2.default.createElement(_TemperatureChart2.default, null)
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_Gauge2.default, null)
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
-	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryHalfWidth },
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_Gauge2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_Gauge2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_Gauge2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
 	                        _react2.default.createElement(_PowerOutlet2.default, null)
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
-	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryHalfWidth },
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
 	                        _react2.default.createElement(_Lights2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_AirConditioner2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
+	                        _react2.default.createElement(_Webcam2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
+	                        _react2.default.createElement(_TemperatureChart2.default, null)
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
@@ -32684,13 +32726,9 @@
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _powerOutlet = __webpack_require__(205);
+	var _Toggle = __webpack_require__(275);
 
-	var _powerOutlet2 = _interopRequireDefault(_powerOutlet);
-
-	var _Label = __webpack_require__(206);
-
-	var _Label2 = _interopRequireDefault(_Label);
+	var _Toggle2 = _interopRequireDefault(_Toggle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32738,17 +32776,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Label2.default, { text: 'Power Outlet' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: _powerOutlet2.default.slide },
-	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'power-outlet-state', name: 'check', checked: this.state.powerOutletOn, onClick: this.handleChange }),
-	                    _react2.default.createElement('label', { htmlFor: 'power-outlet-state' })
-	                )
-	            );
+	            return _react2.default.createElement(_Toggle2.default, { id: 'power-outlet-status', label: 'Power Outlet', checked: this.state.powerOutletOn, onClick: this.handleChange });
 	        }
 	    }]);
 
@@ -32758,15 +32786,7 @@
 	exports.default = PowerOutlet;
 
 /***/ },
-/* 205 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	// removed by extract-text-webpack-plugin
-	module.exports = { "slide": "powerOutlet__slide___2GZUz" };
-
-/***/ },
+/* 205 */,
 /* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32848,13 +32868,9 @@
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _lights = __webpack_require__(209);
+	var _Toggle = __webpack_require__(275);
 
-	var _lights2 = _interopRequireDefault(_lights);
-
-	var _Label = __webpack_require__(206);
-
-	var _Label2 = _interopRequireDefault(_Label);
+	var _Toggle2 = _interopRequireDefault(_Toggle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32902,17 +32918,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Label2.default, { text: 'Lights' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: _lights2.default.slide },
-	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: 'lights-status', name: 'check', checked: this.state.lightsOn, onClick: this.handleChange }),
-	                    _react2.default.createElement('label', { htmlFor: 'lights-status' })
-	                )
-	            );
+	            return _react2.default.createElement(_Toggle2.default, { id: 'lights-status', label: 'Lights', checked: this.state.lightsOn, onClick: this.handleChange });
 	        }
 	    }]);
 
@@ -32922,15 +32928,7 @@
 	exports.default = Lights;
 
 /***/ },
-/* 209 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	// removed by extract-text-webpack-plugin
-	module.exports = { "slide": "lights__slide___3zv2D" };
-
-/***/ },
+/* 209 */,
 /* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32953,10 +32951,6 @@
 	var _utils = __webpack_require__(170);
 
 	var _utils2 = _interopRequireDefault(_utils);
-
-	var _temperatureChart = __webpack_require__(271);
-
-	var _temperatureChart2 = _interopRequireDefault(_temperatureChart);
 
 	var _Label = __webpack_require__(206);
 
@@ -32981,9 +32975,11 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Chart).call(this, props));
 
-	        _this.getIndoorTemps = _this.getIndoorTemps.bind(_this);
+	        _this.getTemps = _this.getTemps.bind(_this);
+	        _this.getHumidity = _this.getHumidity.bind(_this);
 	        _this.state = {
-	            indoorTemps: [{ x: '2016-07-09T09:00', y: 0 }]
+	            temps: [{ x: '2016-07-09T09:00', y: 0 }],
+	            humidity: [{ x: '2016-07-09T09:00', y: 0 }]
 	        };
 	        return _this;
 	    }
@@ -32997,33 +32993,50 @@
 	                if (!data.success) {
 	                    alert('Error getting temperatures');
 	                }
-	                var indoorTemps = data.docs.map(function (temp) {
+	                var temps = data.docs.map(function (temp) {
 	                    return { x: timeFormat.parse(temp.insertDate), y: temp.temperature };
 	                });
-	                _this2.setState({ indoorTemps: indoorTemps });
+	                var humidity = data.docs.map(function (humidity) {
+	                    return { x: timeFormat.parse(humidity.insertDate), y: humidity.humidity };
+	                });
+	                _this2.setState({ temps: temps, humidity: humidity });
 	            });
 	        }
 	    }, {
-	        key: 'getIndoorTemps',
-	        value: function getIndoorTemps() {
+	        key: 'getTemps',
+	        value: function getTemps() {
 	            return [{
 	                name: 'Temp',
-	                values: this.state.indoorTemps,
+	                values: this.state.temps,
+	                strokeWidth: 2
+	            }];
+	        }
+	    }, {
+	        key: 'getHumidity',
+	        value: function getHumidity() {
+	            return [{
+	                name: 'Humidity',
+	                values: this.state.humidity,
 	                strokeWidth: 2
 	            }];
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var latestTemp = this.state.indoorTemps[0].x;
-	            var earliestTemp = this.state.indoorTemps[this.state.indoorTemps.length - 1].x;
+	            var latestTemp = this.state.temps[0].x;
+	            var earliestTemp = this.state.temps[this.state.temps.length - 1].x;
+	            var latestHumidity = this.state.humidity[0].x;
+	            var earliestHumidity = this.state.humidity[this.state.humidity.length - 1].x;
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Label2.default, { text: 'Indoor Temperature' }),
-	                _react2.default.createElement(LineChart, { legend: true, data: this.getIndoorTemps(), width: '100%', height: '500px',
+	                _react2.default.createElement(_Label2.default, { text: 'Indoor Temperature & Humidity' }),
+	                _react2.default.createElement(LineChart, { legend: true, data: this.getTemps(), width: '100%', height: '500px',
 	                    viewBoxObject: { x: 0, y: 0, width: 2000, height: 600 }, title: '',
-	                    yAxisLabel: '°C', xAxisLabel: 'Time', domain: { x: [earliestTemp, latestTemp], y: [0, 40] }, gridHorizontal: true })
+	                    yAxisLabel: '°C', xAxisLabel: 'Time', domain: { x: [earliestTemp, latestTemp], y: [0, 40] }, gridHorizontal: true }),
+	                _react2.default.createElement(LineChart, { legend: true, data: this.getHumidity(), width: '100%', height: '500px',
+	                    viewBoxObject: { x: 0, y: 0, width: 2000, height: 600 }, title: '',
+	                    yAxisLabel: '%', xAxisLabel: 'Time', domain: { x: [earliestHumidity, latestHumidity], y: [0, 100] }, gridHorizontal: true })
 	            );
 	        }
 	    }]);
@@ -46859,13 +46872,7 @@
 	});
 
 /***/ },
-/* 271 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	"use strict";
-
-/***/ },
+/* 271 */,
 /* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -47011,7 +47018,312 @@
 	"use strict";
 
 	// removed by extract-text-webpack-plugin
-	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
+	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryQuarterWidth": "gallery__galleryQuarterWidth___3iNri", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _toggle = __webpack_require__(276);
+
+	var _toggle2 = _interopRequireDefault(_toggle);
+
+	var _Label = __webpack_require__(206);
+
+	var _Label2 = _interopRequireDefault(_Label);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Toggle = function (_Component) {
+	    _inherits(Toggle, _Component);
+
+	    function Toggle() {
+	        _classCallCheck(this, Toggle);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Toggle).apply(this, arguments));
+	    }
+
+	    _createClass(Toggle, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Label2.default, { text: this.props.label }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _toggle2.default.slide },
+	                    _react2.default.createElement('input', { type: 'checkbox', value: 'None', id: this.props.id, name: 'check', checked: this.props.checked, onClick: this.props.onClick }),
+	                    _react2.default.createElement('label', { htmlFor: this.props.id })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Toggle;
+	}(_react.Component);
+
+	exports.default = Toggle;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	// removed by extract-text-webpack-plugin
+	module.exports = { "slide": "toggle__slide___2S1QE" };
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _gauge = __webpack_require__(278);
+
+	var _gauge2 = _interopRequireDefault(_gauge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Toggle = function (_Component) {
+	    _inherits(Toggle, _Component);
+
+	    function Toggle() {
+	        _classCallCheck(this, Toggle);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Toggle).apply(this, arguments));
+	    }
+
+	    _createClass(Toggle, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: _gauge2.default.container },
+	                _react2.default.createElement('div', { className: _gauge2.default.gauge1 }),
+	                _react2.default.createElement('div', { className: _gauge2.default.gauge2 }),
+	                _react2.default.createElement('div', { className: _gauge2.default.gauge3 }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _gauge2.default.gaugeData },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        { id: 'percent' },
+	                        '0%'
+	                    ),
+	                    _react2.default.createElement('br', null),
+	                    'Hover On Me'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Toggle;
+	}(_react.Component);
+
+	exports.default = Toggle;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	// removed by extract-text-webpack-plugin
+	module.exports = { "container": "gauge__container___1EooA", "gauge1": "gauge__gauge1___25PPf", "gauge2": "gauge__gauge2___2tryG", "gauge3": "gauge__gauge3___FBHbL", "gaugeData": "gauge__gaugeData___2iUQc" };
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utils = __webpack_require__(170);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	var _Toggle = __webpack_require__(275);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AirConditioner = function (_Component) {
+	    _inherits(AirConditioner, _Component);
+
+	    function AirConditioner(props) {
+	        _classCallCheck(this, AirConditioner);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AirConditioner).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.state = {
+	            acOn: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(AirConditioner, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _utils2.default.callApi('/getState/ac', 'GET', function (data) {
+	                return _this2.setState({ acOn: data.docs[0].state });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange() {
+	            var _this3 = this;
+
+	            if (window.confirm('Are you sure?')) {
+	                _utils2.default.callApi(this.state.acOn ? '/toggle/ac/off' : '/toggle/ac/on', 'POST', function (data) {
+	                    return _this3.setState({ acOn: data.state });
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_Toggle2.default, { id: 'ac-status', label: 'Air Conditioner', checked: this.state.acOn, onClick: this.handleChange });
+	        }
+	    }]);
+
+	    return AirConditioner;
+	}(_react.Component);
+
+	exports.default = AirConditioner;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utils = __webpack_require__(170);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	var _Toggle = __webpack_require__(275);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Webcam = function (_Component) {
+	    _inherits(Webcam, _Component);
+
+	    function Webcam(props) {
+	        _classCallCheck(this, Webcam);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Webcam).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.state = {
+	            webcamOn: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Webcam, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _utils2.default.callApi('/getState/webcam', 'GET', function (data) {
+	                return _this2.setState({ webcamOn: data.docs[0].state });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange() {
+	            var _this3 = this;
+
+	            if (window.confirm('Are you sure?')) {
+	                _utils2.default.callApi(this.state.webcamOn ? '/toggle/webcam/off' : '/toggle/webcam/on', 'POST', function (data) {
+	                    return _this3.setState({ webcamOn: data.state });
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_Toggle2.default, { id: 'webcam-status', label: 'Webcam', checked: this.state.webcamOn, onClick: this.handleChange });
+	        }
+	    }]);
+
+	    return Webcam;
+	}(_react.Component);
+
+	exports.default = Webcam;
 
 /***/ }
 /******/ ]);

@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css?family=Arimo);
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic);
+.container {
+	width: 200px;
+	height: 100px;
+	position: relative;
+	top: 30%;
+	left: 50%;
+	overflow: hidden;
+	text-align: center;
+	transform: translate(-50%, -50%);
+}
+.gauge1 {
+	z-index: 1;
+	position: absolute;
+	background-color: rgba(255,255,255,.2);
+	width: 200px;
+	height: 100px;
+	top: 0;
+	border-radius: 125px 125px 0 0;
+}
+.gauge2 {
+	z-index: 3;
+	position: absolute;
+	background-color: #222;
+	width: 125px;
+	height: 62px;
+	top: 37px;
+	margin-left: 37px;
+	margin-right: auto;
+	border-radius: 125px 125px 0 0;
+}
+.gauge3 {
+	z-index: 2;
+	position: absolute;
+	background-color: #5664F9;
+	width: 200px;
+	height: 100px;
+	top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0 0 100px 100px;
+	transform-origin: center top;
+	transition: all 1.3s ease-in-out;
+}
+.container:hover .gauge3 {
+	transform: rotate(.5turn);
+}
+.container:hover .gaugeData {
+	color: rgba(255,255,255,1);
+}
+.gaugeData {
+	z-index: 4;
+	color: rgba(255,255,255,.2);
+	font-size: 1.5em;
+	line-height: 25px;
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	top: 45px;
+	margin-left: auto;
+	margin-right: auto;
+	transition: all 1s ease-out;
+}
