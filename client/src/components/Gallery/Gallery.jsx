@@ -9,7 +9,23 @@ import Gauge from '../Gauge/Gauge';
 import Label from '../Label/Label';
 import theme from './gallery.scss';
 
-export default class Home extends Component {
+export default class Gallery extends Component {
+    constructor(props) {
+        super(props);
+        this.handleTempReadingReceived = this.handleTempReadingReceived.bind(this);
+        this.state = {
+            temperature: 0,
+            humidity: 0
+        };
+    }
+
+    handleTempReadingReceived(reading) {
+        this.setState({
+            temperature: reading.temperature,
+            humidity: reading.humidity
+        });
+    }
+
     render() {
         return (
             <div>
@@ -18,16 +34,16 @@ export default class Home extends Component {
                         <Label text={'Welcome to the Pi Dashboard'}/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge/>
+                        <Gauge value={this.state.temperature} maxValue={40} unit={'℃'} label={'Temperature'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge/>
+                        <Gauge value={this.state.humidity} maxValue={100} unit={'%'} label={'Humidity'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge/>
+                        <Gauge value={this.state.temperature} maxValue={40} unit={'℃'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge/>
+                        <Gauge value={this.state.humidity} maxValue={100} unit={'%'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
                         <PowerOutlet/>
@@ -42,7 +58,7 @@ export default class Home extends Component {
                         <Webcam/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
-                        <TemperatureChart/>
+                        <TemperatureChart onTempReadingReceived={this.handleTempReadingReceived}/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
                         <FileItems/>

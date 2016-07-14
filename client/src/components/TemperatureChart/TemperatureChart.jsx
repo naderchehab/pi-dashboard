@@ -29,6 +29,7 @@ export default class Chart extends Component {
                 return {x: timeFormat.parse(humidity.insertDate), y: humidity.humidity};
             });
             this.setState({temps, humidity});
+            this.props.onTempReadingReceived(data.docs[0]);
         });
     }
 

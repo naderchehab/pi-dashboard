@@ -32623,16 +32623,31 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Home = function (_Component) {
-	    _inherits(Home, _Component);
+	var Gallery = function (_Component) {
+	    _inherits(Gallery, _Component);
 
-	    function Home() {
-	        _classCallCheck(this, Home);
+	    function Gallery(props) {
+	        _classCallCheck(this, Gallery);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Gallery).call(this, props));
+
+	        _this.handleTempReadingReceived = _this.handleTempReadingReceived.bind(_this);
+	        _this.state = {
+	            temperature: 0,
+	            humidity: 0
+	        };
+	        return _this;
 	    }
 
-	    _createClass(Home, [{
+	    _createClass(Gallery, [{
+	        key: 'handleTempReadingReceived',
+	        value: function handleTempReadingReceived(reading) {
+	            this.setState({
+	                temperature: reading.temperature,
+	                humidity: reading.humidity
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -32649,22 +32664,22 @@
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, null)
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.temperature, maxValue: 40, unit: '℃', label: 'Temperature' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, null)
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.humidity, maxValue: 100, unit: '%', label: 'Humidity' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, null)
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.temperature, maxValue: 40, unit: '℃' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, null)
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.humidity, maxValue: 100, unit: '%' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
@@ -32689,7 +32704,7 @@
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
-	                        _react2.default.createElement(_TemperatureChart2.default, null)
+	                        _react2.default.createElement(_TemperatureChart2.default, { onTempReadingReceived: this.handleTempReadingReceived })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
@@ -32701,10 +32716,10 @@
 	        }
 	    }]);
 
-	    return Home;
+	    return Gallery;
 	}(_react.Component);
 
-	exports.default = Home;
+	exports.default = Gallery;
 
 /***/ },
 /* 204 */
@@ -33000,6 +33015,7 @@
 	                    return { x: timeFormat.parse(humidity.insertDate), y: humidity.humidity };
 	                });
 	                _this2.setState({ temps: temps, humidity: humidity });
+	                _this2.props.onTempReadingReceived(data.docs[0]);
 	            });
 	        }
 	    }, {
@@ -47120,43 +47136,45 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Toggle = function (_Component) {
-	    _inherits(Toggle, _Component);
+	var Gauge = function (_Component) {
+	    _inherits(Gauge, _Component);
 
-	    function Toggle() {
-	        _classCallCheck(this, Toggle);
+	    function Gauge() {
+	        _classCallCheck(this, Gauge);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Toggle).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Gauge).apply(this, arguments));
 	    }
 
-	    _createClass(Toggle, [{
+	    _createClass(Gauge, [{
 	        key: 'render',
 	        value: function render() {
+	            var value = 0.5 * this.props.value / this.props.maxValue;
+	            if (value) {
+	                document.querySelector('.' + _gauge2.default.outer).style.transform = 'rotate(' + value + 'turn)';
+	            }
 	            return _react2.default.createElement(
 	                'div',
-	                { className: _gauge2.default.container },
-	                _react2.default.createElement('div', { className: _gauge2.default.gauge1 }),
-	                _react2.default.createElement('div', { className: _gauge2.default.gauge2 }),
-	                _react2.default.createElement('div', { className: _gauge2.default.gauge3 }),
+	                { className: _gauge2.default.container, id: this.props.label },
+	                _react2.default.createElement('div', { className: _gauge2.default.inner }),
+	                _react2.default.createElement('div', { className: _gauge2.default.outer }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: _gauge2.default.gaugeData },
 	                    _react2.default.createElement(
 	                        'h1',
-	                        { id: 'percent' },
-	                        '0%'
-	                    ),
-	                    _react2.default.createElement('br', null),
-	                    'Hover On Me'
+	                        null,
+	                        this.props.value,
+	                        this.props.unit
+	                    )
 	                )
 	            );
 	        }
 	    }]);
 
-	    return Toggle;
+	    return Gauge;
 	}(_react.Component);
 
-	exports.default = Toggle;
+	exports.default = Gauge;
 
 /***/ },
 /* 278 */
@@ -47165,7 +47183,7 @@
 	"use strict";
 
 	// removed by extract-text-webpack-plugin
-	module.exports = { "container": "gauge__container___1EooA", "gauge1": "gauge__gauge1___25PPf", "gauge2": "gauge__gauge2___2tryG", "gauge3": "gauge__gauge3___FBHbL", "gaugeData": "gauge__gaugeData___2iUQc" };
+	module.exports = { "container": "gauge__container___1EooA", "inner": "gauge__inner___2D2W_", "outer": "gauge__outer___2sXv2", "gaugeData": "gauge__gaugeData___2iUQc" };
 
 /***/ },
 /* 279 */
