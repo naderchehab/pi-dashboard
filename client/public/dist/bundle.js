@@ -32664,23 +32664,15 @@
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, { value: this.state.temperature, maxValue: 40, unit: '℃', label: 'Temperature' })
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.temperature, maxValue: 50, unit: '℃', label: 'Temperature', id: 'temperature' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, { value: this.state.humidity, maxValue: 100, unit: '%', label: 'Humidity' })
+	                        _react2.default.createElement(_Gauge2.default, { value: this.state.humidity, maxValue: 100, unit: '%', label: 'Humidity', id: 'humidity' })
 	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, { value: this.state.temperature, maxValue: 40, unit: '℃' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
-	                        _react2.default.createElement(_Gauge2.default, { value: this.state.humidity, maxValue: 100, unit: '%' })
-	                    ),
+	                    _react2.default.createElement('li', { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth }),
+	                    _react2.default.createElement('li', { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth }),
 	                    _react2.default.createElement(
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
@@ -47139,22 +47131,51 @@
 	var Gauge = function (_Component) {
 	    _inherits(Gauge, _Component);
 
-	    function Gauge() {
+	    function Gauge(props) {
 	        _classCallCheck(this, Gauge);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Gauge).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Gauge).call(this, props));
+
+	        _this.state = {
+	            value: 0
+	        };
+	        return _this;
 	    }
 
 	    _createClass(Gauge, [{
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            var value = 0.5 * this.props.value / this.props.maxValue;
 	            if (value) {
-	                document.querySelector('.' + _gauge2.default.outer).style.transform = 'rotate(' + value + 'turn)';
+	                var outerGaugeSelector = '#' + this.props.id + ' .' + _gauge2.default.outer;
+	                var outerGauge = document.querySelector(outerGaugeSelector);
+	                outerGauge.style.transform = 'rotate(' + value + 'turn)';
+	                if (this.state.value < this.props.maxValue / 3) {
+	                    outerGauge.classList.add(_gauge2.default.low);
+	                } else if (this.state.value < this.props.maxValue * 2 / 3) {
+	                    outerGauge.classList.add(_gauge2.default.medium);
+	                } else {
+	                    outerGauge.classList.add(_gauge2.default.high);
+	                }
 	            }
+
+	            setInterval(function () {
+	                if (_this2.state.value < _this2.props.value) {
+	                    var val = _this2.state.value + 1;
+	                    _this2.setState({ value: val });
+	                } else {
+	                    if (_this2.state.value != _this2.props.value) {
+	                        _this2.setState({ value: _this2.props.value });
+	                        clearInterval();
+	                    }
+	                }
+	            }, 10);
+
 	            return _react2.default.createElement(
 	                'div',
-	                { className: _gauge2.default.container, id: this.props.label },
+	                { className: _gauge2.default.container, id: this.props.id },
 	                _react2.default.createElement('div', { className: _gauge2.default.inner }),
 	                _react2.default.createElement('div', { className: _gauge2.default.outer }),
 	                _react2.default.createElement(
@@ -47163,7 +47184,7 @@
 	                    _react2.default.createElement(
 	                        'h1',
 	                        null,
-	                        this.props.value,
+	                        this.state.value,
 	                        this.props.unit
 	                    )
 	                )
@@ -47183,7 +47204,7 @@
 	"use strict";
 
 	// removed by extract-text-webpack-plugin
-	module.exports = { "container": "gauge__container___1EooA", "inner": "gauge__inner___2D2W_", "outer": "gauge__outer___2sXv2", "gaugeData": "gauge__gaugeData___2iUQc" };
+	module.exports = { "container": "gauge__container___1EooA", "inner": "gauge__inner___2D2W_", "outer": "gauge__outer___2sXv2", "low": "gauge__low___3tpqC", "medium": "gauge__medium___2CqNk", "high": "gauge__high___2K0vx", "gaugeData": "gauge__gaugeData___2iUQc" };
 
 /***/ },
 /* 279 */

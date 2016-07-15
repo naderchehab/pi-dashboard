@@ -34,16 +34,16 @@ export default class Gallery extends Component {
                         <Label text={'Welcome to the Pi Dashboard'}/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge value={this.state.temperature} maxValue={40} unit={'℃'} label={'Temperature'} />
+                        <Gauge value={this.state.temperature} maxValue={50} unit={'℃'} label={'Temperature'} id={'temperature'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge value={this.state.humidity} maxValue={100} unit={'%'} label={'Humidity'} />
+                        <Gauge value={this.state.humidity} maxValue={100} unit={'%'} label={'Humidity'}  id={'humidity'} />
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge value={this.state.temperature} maxValue={40} unit={'℃'} />
+
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Gauge value={this.state.humidity} maxValue={100} unit={'%'} />
+
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
                         <PowerOutlet/>

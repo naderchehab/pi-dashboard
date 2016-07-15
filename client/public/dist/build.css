@@ -508,7 +508,6 @@
 .gauge__outer___2sXv2 {
   z-index: 2;
   position: absolute;
-  background-color: #5664F9;
   width: 200px;
   height: 100px;
   top: 100px;
@@ -518,15 +517,24 @@
   transform-origin: center top;
   transition: all 1.3s ease-in-out; }
 
+.gauge__low___3tpqC {
+  background-color: deepskyblue; }
+
+.gauge__medium___2CqNk {
+  background-color: gold; }
+
+.gauge__high___2K0vx {
+  background-color: orangered; }
+
 .gauge__gaugeData___2iUQc {
   z-index: 4;
   color: #646464;
-  font-size: 1.2em;
+  font-size: 1em;
   line-height: 25px;
   position: absolute;
   width: 200px;
   height: 100px;
-  top: 38px;
+  top: 42px;
   margin-left: auto;
   margin-right: auto;
   transition: all 1s ease-out; }

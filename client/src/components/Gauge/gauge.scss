@@ -23,7 +23,6 @@
 .outer {
 	z-index: 2;
 	position: absolute;
-	background-color: #5664F9;
 	width: 200px;
 	height: 100px;
 	top: 100px;
@@ -33,15 +32,24 @@
 	transform-origin: center top;
 	transition: all 1.3s ease-in-out;
 }
+.low {
+	background-color: deepskyblue;
+}
+.medium {
+	background-color: gold;
+}
+.high {
+	background-color: orangered;
+}
 .gaugeData {
 	z-index: 4;
 	color: rgb(100,100,100);
-	font-size: 1.2em;
+	font-size: 1em;
 	line-height: 25px;
 	position: absolute;
 	width: 200px;
 	height: 100px;
-	top: 38px;
+	top: 42px;
 	margin-left: auto;
 	margin-right: auto;
 	transition: all 1s ease-out;
