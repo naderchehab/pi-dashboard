@@ -14,7 +14,6 @@ const ensureLogin = require('connect-ensure-login');
 const controller = require('./src/controller');
 const scheduler = require('./src/scheduler');
 const utils = require('./src/utils');
-
 const publicDir = __dirname + '/client/public';
 
 scheduler.init();
@@ -115,5 +114,5 @@ app.get('/getFiles', ensureLogin.ensureLoggedIn('/'), (req, res) => {
     });
 });
 
-console.log('Dashboard server listening on port %s', port);
+console.log('%s Dashboard server listening on port %s', new Date(), port);
 app.listen(port);

@@ -4,7 +4,7 @@ import AirConditioner from '../AirConditioner/AirConditioner';
 import PowerOutlet from '../PowerOutlet/PowerOutlet';
 import FileItems from '../FileList/FileList';
 import Lights from '../Lights/Lights';
-import Webcam from '../Webcam/Webcam';
+import MotionSensor from '../MotionSensor/MotionSensor';
 import Gauge from '../Gauge/Gauge';
 import Label from '../Label/Label';
 import theme from './gallery.scss';
@@ -55,7 +55,7 @@ export default class Gallery extends Component {
                         <AirConditioner/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
-                        <Webcam/>
+                        <MotionSensor/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
                         <TemperatureChart onTempReadingReceived={this.handleTempReadingReceived}/>

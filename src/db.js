@@ -2,19 +2,26 @@ const MongoClient = require('mongodb').MongoClient;
 
 let db = null;
 
-function init() {
+function init(callback) {
     if (db) {
-        console.log('Reusing db connection...');
+        // TODO: this doesn't work, connection is never reused
+        console.log(new Date(), 'Reusing db connection...');
         return callback(null, db);
     }
 
-    console.log('Creating new db connection...');
+    console.log(new Date(), 'Creating new db connection...');
     MongoClient.connect('mongodb://localhost:27017/pi', (err, dbObj) => {
       if(err) {
-        console.log('DB connection failed', err);
+        console.log(new Date(), 'DB connection failed', err);
+        if (callback) {
+              callback(err);
+          }
       }
-      console.log('DB connection success');
+      console.log(new Date(), 'DB connection success');
       db = dbObj;
+    if (callback) {
+          callback();
+      }
     });
 }
 
@@ -23,7 +30,7 @@ function insert(collectionName, doc, callback) {
     doc.insertDate = new Date();
     collection.insert(doc, null, (err, result) => {
         if (err) {
-            console.log('insert failed', err);
+            console.log(new Date(), 'insert failed', err);
             if (callback) {
                 callback(err);
             }
@@ -40,7 +47,7 @@ function find(collectionName, callback) {
     let collection = db.collection(collectionName);
     collection.find({}).sort({'insertDate': -1}).toArray(function(err, docs) {
         if (err) {
-            console.log('find failed', err);
+            console.log(new Date(), 'find failed', err);
             return callback(err);
         }
         callback(null, docs);
