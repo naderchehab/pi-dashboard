@@ -2,8 +2,10 @@
 // Original code is from carjo3000 on thingiverse: http://www.thingiverse.com/thing:1156995. I modified it to suit my requirements.
 
 #include <Servo.h>
-
 #include <RCSwitch.h>
+#include <JeeLib.h> // Low power functions library
+
+ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 RCSwitch mySwitch = RCSwitch();
 Servo myservo;  // create servo object to control a servo
@@ -17,7 +19,7 @@ void setup()
   Serial.begin(9600);
 }
 
-void turnOn() {
+void turnLightOn() {
   // To turn the lights on, the servo goes from 60 degrees to 100 degrees. In this case, 60 degrees is the "neutral" position and 100 degrees is the "on" position.
   for (pos = 60; pos < 100; pos += 1)
   {
@@ -34,7 +36,7 @@ void turnOn() {
   isLightOn = true;
 }
 
-void turnOff() {
+void turnLightOff() {
   for (pos = 60; pos >= 10; pos -= 1)
   {
     myservo.write(pos);
@@ -68,14 +70,15 @@ void loop()
 
       if (value == 22275) {
         if (isLightOn == true) {
-          turnOff();
+          turnLightOff();
         }
         else {
-          turnOn();
+          turnLightOn();
         }
       }
     }
 
     mySwitch.resetAvailable();
+    Sleepy::powerDown();
   }
 }
