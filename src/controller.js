@@ -37,6 +37,16 @@ function toggle(device, state, callback) {
             }
             insertState();
             break;
+            case 'lights':
+                utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 22275 -l 174', (err) => {
+                    if (err) {
+                        console.log(new Date(), 'Could not send command to lights', err);
+                        return callback(err);
+                    }
+                    console.log(new Date(), 'Command sent to lights');
+                    insertState();
+                });
+                break;
         case 'powerOutlet':
             let code = state ? '21811' : '21820';
             utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend ' + code  + ' -l 174', (err) => {
@@ -44,6 +54,7 @@ function toggle(device, state, callback) {
                     console.log(new Date(), 'Could not send command to power outlet', err);
                     return callback(err);
                 }
+                console.log(new Date(), 'Command sent to power outlet', code);
                 insertState();
             });
             break;
