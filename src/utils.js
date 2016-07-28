@@ -11,11 +11,17 @@ function sendCommand(command, callback) {
     });
 }
 
+function sendCommandNoWait(command, callback) {
+    exec(command);
+    callback();
+}
+
 function validatePassword(username, password) {
     return username === credentials.username && password === credentials.password;
 }
 
 module.exports = {
     sendCommand,
+    sendCommandNoWait,
     validatePassword
 };

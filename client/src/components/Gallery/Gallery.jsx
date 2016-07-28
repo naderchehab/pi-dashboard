@@ -6,6 +6,7 @@ import FileItems from '../FileList/FileList';
 import Lights from '../Lights/Lights';
 import MotionSensor from '../MotionSensor/MotionSensor';
 import Gauge from '../Gauge/Gauge';
+import Webcam from '../Webcam/Webcam';
 import Label from '../Label/Label';
 import theme from './gallery.scss';
 
@@ -56,6 +57,9 @@ export default class Gallery extends Component {
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryQuarterWidth}>
                         <MotionSensor/>
+                    </li>
+                    <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
+                        <Webcam/>
                     </li>
                     <li className={theme.galleryElement + ' ' + theme.galleryFullWidth}>
                         <TemperatureChart onTempReadingReceived={this.handleTempReadingReceived}/>

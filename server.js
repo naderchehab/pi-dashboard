@@ -27,7 +27,7 @@ app.use(errorHandler({
 }));
 app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({ cookie: { maxAge : 183*24*60*60*1000 } }));
 
 passport.use(new LocalStrategy((username, password, done) => {
         let isValid = utils.validatePassword(username, password);

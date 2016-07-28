@@ -538,6 +538,10 @@
   margin-left: auto;
   margin-right: auto;
   transition: all 1s ease-out; }
+iframe {
+  width: 320px;
+  height: 240px;
+  border: none; }
 .gallery__gallery___3Vu5D {
   list-style-type: none;
   margin: 0;

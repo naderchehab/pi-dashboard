@@ -32599,13 +32599,17 @@
 
 	var _Lights2 = _interopRequireDefault(_Lights);
 
-	var _MotionSensor = __webpack_require__(278);
+	var _MotionSensor = __webpack_require__(274);
 
 	var _MotionSensor2 = _interopRequireDefault(_MotionSensor);
 
 	var _Gauge = __webpack_require__(275);
 
 	var _Gauge2 = _interopRequireDefault(_Gauge);
+
+	var _Webcam = __webpack_require__(278);
+
+	var _Webcam2 = _interopRequireDefault(_Webcam);
 
 	var _Label = __webpack_require__(265);
 
@@ -32692,6 +32696,11 @@
 	                        'li',
 	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryQuarterWidth },
 	                        _react2.default.createElement(_MotionSensor2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: _gallery2.default.galleryElement + ' ' + _gallery2.default.galleryFullWidth },
+	                        _react2.default.createElement(_Webcam2.default, null)
 	                    ),
 	                    _react2.default.createElement(
 	                        'li',
@@ -47168,7 +47177,85 @@
 	exports.default = Lights;
 
 /***/ },
-/* 274 */,
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utils = __webpack_require__(170);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
+	var _Toggle = __webpack_require__(268);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MotionSensor = function (_Component) {
+	    _inherits(MotionSensor, _Component);
+
+	    function MotionSensor(props) {
+	        _classCallCheck(this, MotionSensor);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MotionSensor).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.state = {
+	            webcamOn: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(MotionSensor, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _utils2.default.callApi('/getState/motionSensor', 'GET', function (data) {
+	                return _this2.setState({ motionSensorOn: data.docs[0].state });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange() {
+	            var _this3 = this;
+
+	            if (window.confirm('Are you sure?')) {
+	                _utils2.default.callApi(this.state.motionSensorOn ? '/toggle/motionSensor/off' : '/toggle/motionSensor/on', 'POST', function (data) {
+	                    return _this3.setState({ motionSensorOn: data.state });
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_Toggle2.default, { id: 'motion-sensor-status', label: 'Motion Sensor', checked: this.state.motionSensorOn, onClick: this.handleChange });
+	        }
+	    }]);
+
+	    return MotionSensor;
+	}(_react.Component);
+
+	exports.default = MotionSensor;
+
+/***/ },
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -47307,6 +47394,10 @@
 
 	var _Toggle2 = _interopRequireDefault(_Toggle);
 
+	var _webcam = __webpack_require__(279);
+
+	var _webcam2 = _interopRequireDefault(_webcam);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47315,13 +47406,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var MotionSensor = function (_Component) {
-	    _inherits(MotionSensor, _Component);
+	var Webcam = function (_Component) {
+	    _inherits(Webcam, _Component);
 
-	    function MotionSensor(props) {
-	        _classCallCheck(this, MotionSensor);
+	    function Webcam(props) {
+	        _classCallCheck(this, Webcam);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MotionSensor).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Webcam).call(this, props));
 
 	        _this.handleChange = _this.handleChange.bind(_this);
 	        _this.state = {
@@ -47330,13 +47421,13 @@
 	        return _this;
 	    }
 
-	    _createClass(MotionSensor, [{
+	    _createClass(Webcam, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _utils2.default.callApi('/getState/motionSensor', 'GET', function (data) {
-	                return _this2.setState({ motionSensorOn: data.docs[0].state });
+	            _utils2.default.callApi('/getState/webcam', 'GET', function (data) {
+	                return _this2.setState({ webcamOn: data.docs[0].state });
 	            });
 	        }
 	    }, {
@@ -47345,22 +47436,37 @@
 	            var _this3 = this;
 
 	            if (window.confirm('Are you sure?')) {
-	                _utils2.default.callApi(this.state.motionSensorOn ? '/toggle/motionSensor/off' : '/toggle/motionSensor/on', 'POST', function (data) {
-	                    return _this3.setState({ motionSensorOn: data.state });
+	                _utils2.default.callApi(this.state.webcamOn ? '/toggle/webcam/off' : '/toggle/webcam/on', 'POST', function (data) {
+	                    _this3.setState({ webcamOn: data.state });
+	                    setTimeout(function () {
+	                        return document.getElementById('webcam-iframe').contentWindow.location.reload();
+	                    }, 5000);
 	                });
 	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_Toggle2.default, { id: 'motion-sensor-status', label: 'Motion Sensor', checked: this.state.motionSensorOn, onClick: this.handleChange });
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement('iframe', { id: 'webcam-iframe', src: 'https://www.goodrobot6.com:8082' }),
+	                _react2.default.createElement(_Toggle2.default, { id: 'webcam-status', label: 'Webcam', checked: this.state.webcamOn, onClick: this.handleChange })
+	            );
 	        }
 	    }]);
 
-	    return MotionSensor;
+	    return Webcam;
 	}(_react.Component);
 
-	exports.default = MotionSensor;
+	exports.default = Webcam;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	"use strict";
 
 /***/ }
 /******/ ]);
