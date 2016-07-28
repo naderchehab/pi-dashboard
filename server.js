@@ -88,6 +88,10 @@ app.post('/toggle/:device/:state', ensureLogin.ensureLoggedIn('/'), (req, res) =
     let device = req.params.device;
     let state = req.params.state === 'on';
 
+    if (utils.hasPermission(req.user.username, device) === false) {
+        return res.json({success: false, error: "Permission denied"});
+    }
+
     controller.toggle(device, state, err => {
         if (err) {
             return res.json({success: false, error: err});

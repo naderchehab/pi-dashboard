@@ -32607,7 +32607,7 @@
 
 	var _Gauge2 = _interopRequireDefault(_Gauge);
 
-	var _Webcam = __webpack_require__(278);
+	var _Webcam = __webpack_require__(277);
 
 	var _Webcam2 = _interopRequireDefault(_Webcam);
 
@@ -32615,7 +32615,7 @@
 
 	var _Label2 = _interopRequireDefault(_Label);
 
-	var _gallery = __webpack_require__(277);
+	var _gallery = __webpack_require__(279);
 
 	var _gallery2 = _interopRequireDefault(_gallery);
 
@@ -47363,15 +47363,6 @@
 
 /***/ },
 /* 277 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	// removed by extract-text-webpack-plugin
-	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryQuarterWidth": "gallery__galleryQuarterWidth___3iNri", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
-
-/***/ },
-/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47394,7 +47385,7 @@
 
 	var _Toggle2 = _interopRequireDefault(_Toggle);
 
-	var _webcam = __webpack_require__(279);
+	var _webcam = __webpack_require__(278);
 
 	var _webcam2 = _interopRequireDefault(_webcam);
 
@@ -47462,11 +47453,20 @@
 	exports.default = Webcam;
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
+
+/***/ },
+/* 279 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	// removed by extract-text-webpack-plugin
+	module.exports = { "gallery": "gallery__gallery___3Vu5D", "galleryElement": "gallery__galleryElement___1JK2n", "galleryHalfWidth": "gallery__galleryHalfWidth___tPf7o", "galleryQuarterWidth": "gallery__galleryQuarterWidth___3iNri", "galleryFullWidth": "gallery__galleryFullWidth___1SK4C" };
 
 /***/ }
 /******/ ]);
