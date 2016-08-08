@@ -5,80 +5,74 @@
 #include <RCSwitch.h>
 #include <JeeLib.h> // Low power functions library
 
-ISR(WDT_vect) { Sleepy::watchdogEvent(); }
+//ISR(WDT_vect) { Sleepy::watchdogEvent(); } // Setup the watchdog
 
 RCSwitch mySwitch = RCSwitch();
 Servo myservo;  // create servo object to control a servo
 int pos = 0;    // variable to store the servo position
-boolean isLightOn = true;
 
 void setup()
 {
+  //Serial.begin(9600);
   myservo.attach(9);  // attaches the servo to pin #9 of arduino
-  mySwitch.enableReceive(0);  // attaches the radio receiver to inerrupt 0 => that is pin #2
-  Serial.begin(9600);
+  mySwitch.enableReceive(digitalPinToInterrupt(3));  // attaches the radio receiver to inerrupt 0 => that is digital pin #2
+  myservo.write(55);
 }
 
 void turnLightOn() {
-  // To turn the lights on, the servo goes from 60 degrees to 100 degrees. In this case, 60 degrees is the "neutral" position and 100 degrees is the "on" position.
-  for (pos = 60; pos < 100; pos += 1)
-  {
-    myservo.write(pos);
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-
-  // After the switch is flipped, go back to neutral position
-  for (pos = 100; pos >= 60; pos -= 1)
+for (pos = 55; pos <= 85; pos += 1)
   {
     myservo.write(pos);
     delay(15);
   }
-  isLightOn = true;
+
+  delay(500);
+
+  // After the switch is flipped, go back to neutral position
+  for (pos = 85; pos >= 55; pos -= 1)
+  {
+    myservo.write(pos);
+    delay(15);
+  }
 }
 
 void turnLightOff() {
-  for (pos = 60; pos >= 10; pos -= 1)
+for (pos = 55; pos >= 15; pos -= 1)
   {
     myservo.write(pos);
     delay(15);
   }
 
-  for (pos = 10; pos < 60; pos += 1)
+  delay(500);
+
+  // After the switch is flipped, go back to neutral position
+  for (pos = 15; pos <= 55; pos += 1)
   {
     myservo.write(pos);
     delay(15);
   }
-  isLightOn = false;
+}
+
+void printValue() {
+  Serial.print("Received ");
+  Serial.print( mySwitch.getReceivedValue() );
+  Serial.print(" / ");
+  Serial.print( mySwitch.getReceivedBitlength() );
+  Serial.print("bit ");
+  Serial.print("Protocol: ");
+  Serial.println( mySwitch.getReceivedProtocol() );
 }
 
 void loop()
 {
   if (mySwitch.available()) {
-
-    int value = mySwitch.getReceivedValue();
-
-    if (value == 0) {
-      Serial.print("Unknown encoding");
-    } else {
-      Serial.print("Received ");
-      Serial.print( mySwitch.getReceivedValue() );
-      Serial.print(" / ");
-      Serial.print( mySwitch.getReceivedBitlength() );
-      Serial.print("bit ");
-      Serial.print("Protocol: ");
-      Serial.println( mySwitch.getReceivedProtocol() );
-
-      if (value == 22275) {
-        if (isLightOn == true) {
-          turnLightOff();
-        }
-        else {
-          turnLightOn();
-        }
-      }
+    int code = mySwitch.getReceivedValue();
+    //Serial.println(code);
+    if (code == 22275) {
+      turnLightOff();
+    } else if (code == 22284) {
+      turnLightOn();
     }
-
     mySwitch.resetAvailable();
-    Sleepy::powerDown();
   }
 }

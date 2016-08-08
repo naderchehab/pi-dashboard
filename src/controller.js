@@ -3,8 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 const motionSensor = require('./motionSensor');
+const powerOutlet = require('./powerOutlet');
+const lights = require('./lights');
+const webcam = require('./webcam');
 const utils = require('./utils');
-const rfTransmitter = new Gpio(17, 'out', 'both');
 
 db.init((err) => {
     if (err) {
@@ -37,34 +39,23 @@ function toggle(device, state, callback) {
             insertState();
             break;
         case 'lights':
-            utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend 22275 -l 174', (err) => {
-                if (err) {
-                    console.log(new Date(), 'Could not send command to lights', err);
-                    return callback(err);
-                }
-                console.log(new Date(), 'Command sent to lights');
-                insertState();
-            });
+                lights.toggle(state, () => {
+                    console.log(new Date(), 'Command sent to lights', state);
+                    insertState();
+                });
             break;
         case 'powerOutlet':
-            let code = state ? '21811' : '21820';
-            utils.sendCommand('/var/www/pi-dashboard/rfoutlet/codesend ' + code + ' -l 174', (err) => {
-                if (err) {
-                    console.log(new Date(), 'Could not send command to power outlet', err);
-                    return callback(err);
-                }
-                console.log(new Date(), 'Command sent to power outlet', code);
+            powerOutlet.toggle(state, () => {
+                console.log(new Date(), 'Command sent to power outlet', state);
                 insertState();
             });
             break;
         case 'webcam':
-            let command = state ? 'sudo motion' : 'sudo pkill motion';
-            utils.sendCommandNoWait(command, () => {
-                console.log(new Date(), 'Command sent to webcam', command);
+            webcam.toggle(state, () => {
+                console.log(new Date(), 'Command sent to webcam', state);
                 insertState();
             });
-
-    break;
+        break;
     default:
     callback(new Error('Invalid device type'));
 }
