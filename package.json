@@ -1,6 +1,6 @@
 {
   "name": "pi-dashboard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Raspberry Pi Dashboard",
   "main": "server.js",
   "scripts": {
@@ -18,8 +18,10 @@
     "errorhandler": "^1.0.1",
     "express": "^4.1.2",
     "express-session": "^1.14.0",
+    "find-remove": "^1.0.1",
     "later": "^1.2.0",
     "method-override": "^1.0.0",
+    "moment": "^2.18.0",
     "mongodb": "^2.2.1",
     "onoff": "^1.1.1",
     "passport": "^0.3.2",

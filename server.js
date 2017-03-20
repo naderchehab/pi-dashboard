@@ -12,11 +12,15 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const ensureLogin = require('connect-ensure-login');
 const controller = require('./src/controller');
-const scheduler = require('./src/scheduler');
+const tempReadScheduler = require('./src/tempReadScheduler');
+const securityCamScheduler = require('./src/securityCamScheduler');
+const cleanupScheduler = require('./src/cleanupScheduler');
 const utils = require('./src/utils');
 const publicDir = __dirname + '/client/public';
 
-scheduler.init();
+tempReadScheduler.init();
+securityCamScheduler.init();
+cleanupScheduler.init();
 
 app.use(methodOverride());
 app.use(bodyParser.json());
